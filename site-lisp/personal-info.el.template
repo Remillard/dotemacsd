@@ -1,0 +1,7 @@
+;;
+;; Edit this file with the relevant information and then
+;; rename it without the ".template" suffix.
+;;
+(setq-default user-full-name "John Doe"
+              user-mail-address "john.doe@email.address"
+              vhdl-company-name "Self")

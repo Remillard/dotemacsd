@@ -102,7 +102,7 @@
 ;; This way I can have a identity for work and one for home and just
 ;; change that file by itself.
 ;;
-(setq personal-info-file (concat user-emacs-directory "personal-info.el"))
+(setq personal-info-file (concat user-emacs-directory "site-lisp/personal-info.el"))
 (when (file-exists-p personal-info-file)
   (load personal-info-file))
 
