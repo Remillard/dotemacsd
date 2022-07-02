@@ -1,0 +1,5 @@
+#+title: README for dotemacsd
+#+author: Mark Norton
+#+date: <2022-07-02 Sat>
+
+This is just a repository to keep track of my init.el file (and others) between various machines.
