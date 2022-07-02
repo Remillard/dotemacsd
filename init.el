@@ -237,6 +237,14 @@
   :after (treemacs all-the-icons)
   :config
   (treemacs-load-theme "all-the-icons"))
+;;
+;; Magit
+;;
+(use-package magit
+  :bind ("C-x g" . magit-status))
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode 't))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
