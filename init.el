@@ -12,12 +12,19 @@
 ;;
 ;; Setting up package archives
 ;;
-(require 'package)
-(setq package-enable-at-startup nil)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")))
-(setq package-archive-priorities '(("melpa" . 10) ("org" . 7) ("gnu" . 5)))
+(unless package-enable-at-startup
+  (require 'package)
+  (setq package-archives
+        '(("gnu" . "https://elpa.gnu.org/packages/")
+          ("melpa" . "https://melpa.org/packages/")
+          ("org" . "https://orgmode.org/elpa/")))
+  (setq package-archive-priorities
+        '(("melpa" . 9)
+          ("org" . 10)
+          ("gnu" . 5)))
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents)))
 ;;
 ;; Setup use-package
 ;;
@@ -80,6 +87,10 @@
 (put 'downcase-region 'disabled nil) ;; Eliminates irritating warning message
 (put 'upcase-region 'disabled nil)   ;; Eliminates irritating warning message
 ;;
+;; Revert buffers when the underlying file has changed
+;;
+(global-auto-revert-mode 1)
+;;
 ;; Allows a number of commonly used and safe file variables.
 ;;
 (put 'after-save-hook 'safe-local-variable
@@ -90,7 +101,7 @@
 ;;
 (global-unset-key (kbd "C-x C-z"))
 ;;
-;; Recent Files
+;; Command History & Recent Files
 ;;
 (savehist-mode 1)
 (recentf-mode 1)
