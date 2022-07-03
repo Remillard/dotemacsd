@@ -128,8 +128,12 @@
 (use-package all-the-icons
   :if (display-graphic-p))
 (use-package vscode-dark-plus-theme
+  :disabled
   :config
   (load-theme 'vscode-dark-plus t))
+(use-package gruvbox-theme
+  :config
+  (load-theme 'gruvbox-dark-hard))
 ;;
 ;; Font(s)
 ;;
@@ -143,7 +147,7 @@
 ;;
 (add-to-list 'default-frame-alist '(left . 150))
 (add-to-list 'default-frame-alist '(top . 50))
-(add-to-list 'default-frame-alist '(height . 43))
+(add-to-list 'default-frame-alist '(height . 35))
 (add-to-list 'default-frame-alist '(width . 132))
 ;;
 ;; Client look and feel
