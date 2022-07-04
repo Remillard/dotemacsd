@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: EAR Statement
+# key: EAR
+# --
+--
+-- This document contains controlled technology or technical data under the
+-- jurisdiction of the Export Administration Regulations (EAR), 15 CFR 730-774.
+-- It cannot be transferred to any foreign third party without the specific
+-- prior approval of the U.S. Department of Commerce Bureau of Industry and
+-- Security (BIS). Violations of these regulations are punishable by fine,
+-- imprisonment, or both.

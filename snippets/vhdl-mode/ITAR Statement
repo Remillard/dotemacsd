@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: ITAR Statement
+# key: ITAR
+# --
+--
+-- This document contains controlled technology or technical data under the
+-- jurisdiction of the International Traffic in Arms Regulations (ITAR),
+-- 22 CRF 120-13.  It cannot be transferred to any foreign third party
+-- without the specific prior approval of the U.S. Department of State,
+-- Directorate of Defense Trace Controls (DDTC). Violations of these
+-- regulations are punishable by fine, imprisonment, or both.

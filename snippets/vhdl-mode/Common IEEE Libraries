@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# contributor: M. Norton <mark.norton@viavisolutions.com>
+# name: Common IEEE Libraries
+# key: ieee
+# --
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+${1:use std.textio.all;
+use ieee.std_logic_textio.all;}
+$0
+
+
