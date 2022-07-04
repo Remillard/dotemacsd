@@ -1,2 +1,19 @@
+#
+# Backup Files
+#
 *~
+#
+# Individual Files
+#
 personal-info.el
+history
+places
+recentf
+#
+# Directories
+#
+elpa/
+.cache/
+eshell/
+server/
+transient/
