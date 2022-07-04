@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Org Doc Header
+# key: head
+# --
+#+TITLE: $0
+#+AUTHOR: `user-full-name`
+#+DATE: `(current-time-string)`
+#+EMAIL: `user-mail-address`
+#+options: timestamp:t title:t toc:t todo:t |:t ^:{}
+#+startup: num
