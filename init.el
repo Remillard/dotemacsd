@@ -2,6 +2,8 @@
 ;;
 ;; INITIALIZATION
 ;;
+;; Test Commit
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Setting up the Emacs Customization File
