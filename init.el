@@ -2,6 +2,8 @@
 ;;
 ;; INITIALIZATION
 ;;
+;; Test Commit
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Setting up the Emacs Customization File
@@ -12,19 +14,18 @@
 ;;
 ;; Setting up package archives
 ;;
-(unless package-enable-at-startup
-  (require 'package)
-  (setq package-archives
-        '(("gnu" . "https://elpa.gnu.org/packages/")
-          ("melpa" . "https://melpa.org/packages/")
-          ("org" . "https://orgmode.org/elpa/")))
-  (setq package-archive-priorities
-        '(("melpa" . 9)
-          ("org" . 10)
-          ("gnu" . 5)))
-  (package-initialize)
-  (unless package-archive-contents
-    (package-refresh-contents)))
+(require 'package)
+(setq package-archives
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("org" . "https://orgmode.org/elpa/")))
+(setq package-archive-priorities
+      '(("melpa" . 9)
+        ("org" . 10)
+        ("gnu" . 5)))
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 ;;
 ;; Setup use-package
 ;;
