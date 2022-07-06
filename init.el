@@ -168,6 +168,7 @@
 (add-hook 'conf-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
+(add-hook 'vhdl-mode-hook #'display-line-numbers-mode)
 (setq-default
  display-line-numbers-grow-only t
  display-line-numbers-type 'relative
@@ -199,6 +200,13 @@
   :config
   (show-paren-mode 0)
   (require 'smartparens-config))
+;;
+;; Editing packages MoveText
+;;
+(use-package move-text
+  :bind
+  (("M-<up>" . move-text-line-up)
+   ("M-<down>" . move-text-line-down)))
 ;;
 ;; Deadgrep -- ripgrep interface
 ;;
@@ -255,7 +263,8 @@
 ;; Magit
 ;;
 (use-package magit
-  :bind ("C-x g" . magit-status))
+  :bind
+  ("C-x g" . magit-status))
 (use-package git-gutter
   :config
   (global-git-gutter-mode 't))
