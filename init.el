@@ -4,11 +4,13 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Setting up the Emacs Customization File
-;;
+;; FILE LOCATIONS
+;; Emacs Customization File
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
+;; Temporary Directory
+(setq temporary-file-directory "c:/temp/")
 ;;
 ;; Setting up package archives
 ;;
@@ -204,9 +206,8 @@
 ;; Editing packages MoveText
 ;;
 (use-package move-text
-  :bind
-  (("M-<up>" . move-text-line-up)
-   ("M-<down>" . move-text-line-down)))
+  :config
+  (move-text-default-bindings))
 ;;
 ;; Deadgrep -- ripgrep interface
 ;;
