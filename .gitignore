@@ -17,3 +17,5 @@ elpa/
 eshell/
 server/
 transient/
+
+logs/
