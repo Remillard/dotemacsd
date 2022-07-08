@@ -259,7 +259,8 @@
 (use-package treemacs-all-the-icons
   :after (treemacs all-the-icons)
   :config
-  (treemacs-load-theme "all-the-icons"))
+  ;;  (treemacs-load-theme "all-the-icons"))
+  (treemacs-load-all-the-icons-with-workaround-font "Hermit"))
 ;;
 ;; Magit
 ;;
