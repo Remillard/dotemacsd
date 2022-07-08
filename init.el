@@ -259,7 +259,12 @@
 (use-package treemacs-all-the-icons
   :after (treemacs all-the-icons)
   :config
+  ;; The following line will load the theme, but exhibits some
+  ;; issues with alignment of the icons and text.
   ;;  (treemacs-load-theme "all-the-icons"))
+  ;; This workaround sets up a specific font that does not vary
+  ;; in size and is used to handle alignment in the sidebar.
+  ;; Then it calls treemacs-load-theme for all-the-icons.
   (treemacs-load-all-the-icons-with-workaround-font "Hermit"))
 ;;
 ;; Magit
