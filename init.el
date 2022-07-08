@@ -138,9 +138,9 @@
 ;;
 ;; Font(s)
 ;;
-(set-frame-font "Inconsolata 14" nil t)
-;;(set-frame-font "Roboto Mono 14" nil t)
-;;(set-frame-font "Consolas 15" nil t)
+;;(set-frame-font "Inconsolata 14" nil t)
+(set-frame-font "Roboto Mono 12" nil t)
+;;(set-frame-font "Consolas 14" nil t)
 ;;(set-frame-font "Cascadia Code 14" nil t)
 ;;(set-frame-font "Fira Code 13" nil t)
 ;;
@@ -219,8 +219,10 @@
 ;;
 (use-package multiple-cursors
   :ensure t
-  :bind (("<C-M-down>" . mc/mark-next-like-this)
-         ("<C-M-up>" . mc/mark-prev-like-this)))
+  :bind
+  (("<C-M-down>" . mc/mark-next-like-this)
+   ("<C-M-up>" . mc/mark-previous-like-this)
+   ("C-M-<mouse-1>" . mc/add-cursor-on-click)))
 ;;
 ;; Company completion tools
 ;;
