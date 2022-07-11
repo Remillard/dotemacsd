@@ -219,10 +219,9 @@
 ;;
 (use-package multiple-cursors
   :ensure t
-  :bind
-  (("<C-M-down>" . mc/mark-next-like-this)
-   ("<C-M-up>" . mc/mark-previous-like-this)
-   ("C-M-<mouse-1>" . mc/add-cursor-on-click)))
+  :bind (("<C-M-down>" . mc/mark-next-like-this)
+         ("<C-M-up>" . mc/mark-previous-like-this)
+         ("C-M-<mouse-1>" . mc/add-cursor-on-click)))
 ;;
 ;; Company completion tools
 ;;
