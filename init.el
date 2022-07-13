@@ -151,6 +151,12 @@
 (add-to-list 'default-frame-alist '(height . 35))
 (add-to-list 'default-frame-alist '(width . 132))
 ;;
+;; Transparency.  The first value in the cons cell is the alpha level of the
+;; frame when focused (100 = fully opaque).  The second value in the cons cell
+;; is the alpha level of the frame when not in focus.
+;;
+(set-frame-parameter (selected-frame) 'alpha '(100. 90))
+;;
 ;; Client look and feel
 ;;
 (global-visual-line-mode 1)
@@ -290,6 +296,7 @@
 (global-set-key (kbd "M-s") 'isearch-forward-symbol-at-point)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(global-set-key (kbd "<mouse-4>") 'treemacs)
 
 ;; Movement
 (when (fboundp 'windmove-default-keybindings)
