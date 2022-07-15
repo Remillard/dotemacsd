@@ -36,4 +36,5 @@
  '(treemacs-git-modified-face ((t (:inherit treemacs-file-face :foreground "slate blue"))))
  '(treemacs-git-renamed-face ((t (:inherit treemacs-file-face :foreground "yellow green"))))
  '(treemacs-git-untracked-face ((t (:inherit treemacs-file-face :foreground "DeepSkyBlue1"))))
- '(treemacs-root-face ((t (:inherit treemacs-file-face :foreground "pale violet red" :underline t :weight bold :height 1.2)))))
+ '(treemacs-root-face ((t (:inherit treemacs-file-face :foreground "pale violet red" :underline t :weight bold :height 1.2))))
+ '(treemacs-tags-face ((t (:inherit treemacs-file-face :foreground "dark orange")))))
