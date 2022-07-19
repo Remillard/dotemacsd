@@ -155,7 +155,10 @@
 ;; frame when focused (100 = fully opaque).  The second value in the cons cell
 ;; is the alpha level of the frame when not in focus.
 ;;
-(set-frame-parameter (selected-frame) 'alpha '(100. 90))
+;; Leaving the setting here in case I change my mind, but currently I don't
+;; like transparency on the editor all that much.
+;;
+(set-frame-parameter (selected-frame) 'alpha '(100 . 100))
 ;;
 ;; Client look and feel
 ;;
