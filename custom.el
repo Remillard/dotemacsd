@@ -12,7 +12,7 @@
  '(package-selected-packages
    '(powershell pdf-tools move-text git-gutter magit yaml-mode treemacs-all-the-icons all-the-icons treemacs projectile yasnippet-snippets markdown-mode json-mode verilog-mode yasnippet yasnippets company-statistics company multiple-cursors deadgrep rainbow-delimiters rainbow-delimeters smartparens solaire-mode vscode-dark-plus-theme benchmark-init use-package))
  '(vhdl-project-alist
-   '(("Saratoga Digital Board FPGA" "IFF-45TS Next Generation w/ Arria 10 SX660 FPGA" "d:/projects_git/saratoga_digbd_fpga/"
+   '(("Saratoga Digital Board FPGA" "IFF-45TS Next Generation w/ Arria 10 SX660 FPGA" "c:/Users/nor71443/projects/saratoga_digbd_fpga/"
       ("src/")
       ""
       (("Aldec" "-dbg -2008 -work \\1" "-f \\1 top_level" nil))

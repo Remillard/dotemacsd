@@ -263,7 +263,8 @@
 ;;
 (use-package treemacs
   :bind
-  ("C-x M-b" . treemacs)
+  (("C-x M-b" . treemacs)
+   ("C-t" . treemacs))
   :config
   (setq treemacs-python-executable "c:/Python310/python.exe"))
 (use-package treemacs-all-the-icons
@@ -424,6 +425,16 @@
 ;; overriding built-in packages.
 (use-package verilog-mode
   :load-path "elpa/verilog-mode-2021.10.14.127365406/")
+;;
+;; Tcl
+;;
+(setq auto-mode-alist
+      (append
+       ;; Quartus Settings File is type Tcl
+       '(("\\.qsf\\'" . tcl-mode)
+       ;; Riviera-Pro/Modelsim Macro Files are type Tcl
+         ("\\.do\\'" . tcl-mode))
+       auto-mode-alist))
 ;;
 ;; JSON
 ;;

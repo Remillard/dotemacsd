@@ -3,7 +3,11 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        org-delete-char
+        org-self-insert-command
+        vhdl-electric-semicolon
         vhdl-electric-space
+        vhdl-electric-tab
         ))
 
 (setq mc/cmds-to-run-once
