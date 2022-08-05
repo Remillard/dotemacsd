@@ -4,8 +4,11 @@
 (setq mc/cmds-to-run-for-all
       '(
         end-of-visual-line
+        kill-visual-line
         org-delete-char
         org-self-insert-command
+        vhdl-electric-comma
+        vhdl-electric-period
         vhdl-electric-semicolon
         vhdl-electric-space
         vhdl-electric-tab

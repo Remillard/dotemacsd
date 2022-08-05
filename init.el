@@ -3,6 +3,7 @@
 ;; INITIALIZATION
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "==== Initial Bootstrap ====")
 ;;
 ;; FILE LOCATIONS
 ;; Emacs Customization File
@@ -72,6 +73,7 @@
 ;;
 ;; Some sane default settings
 ;;
+(message "==== Applying general settings ====")
 (setq-default
  inhibit-startup-screen t               ;; Just go directly to initial buffer
  column-number-mode t                   ;; Shows row and column on the modeline
@@ -126,6 +128,7 @@
 ;;
 ;; Theme
 ;;
+(message "==== Setting up client appearance ====")
 (use-package all-the-icons
   :if (display-graphic-p))
 (use-package vscode-dark-plus-theme
@@ -190,9 +193,11 @@
 ;; PACKAGES (Not loaded in other places)
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "==== Package Configuration ====")
 ;;
 ;; Rainbow Delimeters
 ;;
+(message "---- Rainbow Delimiters")
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -200,6 +205,7 @@
 ;;
 ;; Smartparens
 ;;
+(message "---- Smartparens")
 (use-package smartparens
   :hook
   (after-init . smartparens-global-mode)
@@ -214,18 +220,21 @@
 ;;
 ;; Editing packages MoveText
 ;;
+(message "---- MoveText")
 (use-package move-text
   :config
   (move-text-default-bindings))
 ;;
 ;; Deadgrep -- ripgrep interface
 ;;
+(message "---- Deadgrep")
 (use-package deadgrep
   :config
   :bind (("<f5>" . #'deadgrep)))
 ;;
 ;; Multiple Cursors
 ;;
+(message "---- Multiple Cursors")
 (use-package multiple-cursors
   :ensure t
   :bind (("<C-M-down>" . mc/mark-next-like-this)
@@ -234,15 +243,19 @@
 ;;
 ;; Company completion tools
 ;;
+(message "---- Company")
 (use-package company
   :config
-  (global-company-mode t))
+  (global-company-mode t)
+  (setq company-dabbrev-ignore-case 'keep-prefix)
+  (setq company-dabbrev-downcase nil))
 (use-package company-statistics
   :hook
   (after-init-hook . company-statistics-mode))
 ;;
 ;; Snippet support
 ;;
+(message "---- YASnippet")
 (use-package yasnippet-snippets)
 (use-package yasnippet
   :bind
@@ -261,6 +274,7 @@
 ;;
 ;; Treemacs and Icons
 ;;
+(message "---- Treemacs")
 (use-package treemacs
   :bind
   (("C-x M-b" . treemacs)
@@ -280,6 +294,7 @@
 ;;
 ;; Magit
 ;;
+(message "---- Magit")
 (use-package magit
   :bind
   ("C-x g" . magit-status))
@@ -293,6 +308,7 @@
 ;; KEYBINDS
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "==== Non use-package keybinding ====")
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
@@ -313,6 +329,7 @@
 ;; PROGRAMMING MODES
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "==== Specific Coding Mode Setup ====")
 ;;
 ;; Emacs Lisp
 ;;
@@ -445,6 +462,7 @@
 ;;
 (use-package markdown-mode)
 
+(message "==== End of init.el ====")
 
 
 
