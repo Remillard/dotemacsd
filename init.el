@@ -291,6 +291,20 @@
   ;; in size and is used to handle alignment in the sidebar.
   ;; Then it calls treemacs-load-theme for all-the-icons.
   (treemacs-load-all-the-icons-with-workaround-font "Hermit"))
+;; Face colors setup for Gruvbox
+(custom-theme-set-faces
+ 'user
+ '(treemacs-file-face ((t (:height 100 :family "Roboto"))))
+ '(treemacs-root-face ((t (:inherit treemacs-file-face :foreground "#d3869b" :underline t :weight bold :height 1.2))))
+ '(treemacs-directory-face ((t (:inherit treemacs-file-face :foreground "#fabd2f"))))
+ '(treemacs-git-added-face ((t (:inherit treemacs-file-face :foreground "#076678"))))
+ '(treemacs-git-conflict-face ((t (:inherit treemacs-file-face :foreground "#fb4933"))))
+ '(treemacs-git-ignored-face ((t (:inherit treemacs-file-face :foreground "#767676"))))
+ '(treemacs-git-modified-face ((t (:inherit treemacs-file-face :foreground "#83a598"))))
+ '(treemacs-git-renamed-face ((t (:inherit treemacs-file-face :foreground "#b8bb26"))))
+ '(treemacs-git-untracked-face ((t (:inherit treemacs-file-face :foreground "#bcbcbc"))))
+ '(treemacs-tags-face ((t (:inherit treemacs-file-face :foreground "#fe8019")))))
+                        
 ;;
 ;; Magit
 ;;
@@ -341,13 +355,16 @@
 ;;
 ;; Setting up the most recent version (not on package repositories)
 (use-package vhdl-mode
-  :load-path "site-lisp/vhdl-mode-3.38.3/")
+  :load-path "site-lisp/vhdl-mode-3.38.4/")
 ;; Sets the closing parenthesis to be back one indent level which is not the
 ;; shipping standard for vhdl-mode.  This function hooks the set offset for
 ;; the closing argument list and sets it to 0 levels of indentation.
 (add-hook 'vhdl-mode-hook
           (lambda ()
             (vhdl-set-offset 'arglist-close 0)))
+;; Makes compilation buffer show up horizontal low
+(add-to-list 'display-buffer-alist
+             '("\\*compilation\\*$" . (display-buffer-below-selected)))
 ;; Sets my preferred values for vhdl-mode
 (setq-default vhdl-basic-offset 4
               vhdl-electric-mode t
@@ -451,7 +468,9 @@
        ;; Quartus Settings File is type Tcl
        '(("\\.qsf\\'" . tcl-mode)
        ;; Riviera-Pro/Modelsim Macro Files are type Tcl
-         ("\\.do\\'" . tcl-mode))
+         ("\\.do\\'" . tcl-mode)
+         ;; Timing constrains are type Tcl
+         ("\\.sdc\\'" . tcl-mode))
        auto-mode-alist))
 ;;
 ;; JSON

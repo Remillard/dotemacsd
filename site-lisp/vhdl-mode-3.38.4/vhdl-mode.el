@@ -10,10 +10,10 @@
 ;; Keywords:	languages vhdl
 ;; WWW:		http://www.iis.ee.ethz.ch/~zimmi/emacs/vhdl-mode.html
 
-(defconst vhdl-version "3.38.3"
+(defconst vhdl-version "3.38.4"
   "VHDL Mode version number.")
 
-(defconst vhdl-time-stamp "2022-07-18"
+(defconst vhdl-time-stamp "2022-08-31"
   "VHDL Mode time stamp for last update.")
 
 ;; This file is part of GNU Emacs.
@@ -1456,6 +1456,15 @@ Type `C-j' for newlines."
 	       (boolean :tag "std_logic_textio  "))
   :group 'vhdl-testbench)
 
+(defcustom vhdl-testbench-include-custom-library ""
+  "*String or file to be inserted in the testbench as library/use clause.
+If the string specifies an existing file name, the contents of the file is
+inserted, otherwise the string itself is inserted in the testbench
+after the standard library/use clauses).
+Type `C-j' for newlines."
+  :type 'string
+  :group 'vhdl-testbench)
+
 (defcustom vhdl-testbench-include-configuration t
   "*Non-nil means a testbench configuration is attached at the end."
   :type 'boolean
@@ -2730,6 +2739,7 @@ elements > `vhdl-menu-max-size'."
   (define-key vhdl-template-map "ad"	'vhdl-template-attribute-decl)
   (define-key vhdl-template-map "as"	'vhdl-template-attribute-spec)
   (define-key vhdl-template-map "bl"	'vhdl-template-block)
+  (define-key vhdl-template-map "cg"	'vhdl-template-case-generate)
   (define-key vhdl-template-map "ca"	'vhdl-template-case-is)
   (define-key vhdl-template-map "cd"	'vhdl-template-component-decl)
   (define-key vhdl-template-map "ci"	'vhdl-template-component-inst)
@@ -3095,119 +3105,119 @@ STRING are replaced by `-' and substrings are converted to lower case."
 		   (lambda (x) (list (car x) "" (cdr x) 0))
 		 (lambda (x) (list (car x) "" (cdr x) 0 'system)))
 	       '(
-		 ("--"		   . vhdl-template-display-comment-hook)
-		 ("abs"	   . vhdl-template-default-hook)
-		 ("access"	   . vhdl-template-default-hook)
-		 ("after"	   . vhdl-template-default-hook)
-		 ("alias"	   . vhdl-template-alias-hook)
-		 ("all"	   . vhdl-template-default-hook)
-		 ("and"	   . vhdl-template-default-hook)
-		 ("arch"	   . vhdl-template-architecture-hook)
-		 ("architecture"  . vhdl-template-architecture-hook)
-		 ("array"	   . vhdl-template-default-hook)
-		 ("assert"	   . vhdl-template-assert-hook)
-		 ("attr"	   . vhdl-template-attribute-hook)
-		 ("attribute"	   . vhdl-template-attribute-hook)
-		 ("begin"	   . vhdl-template-default-indent-hook)
-		 ("block"	   . vhdl-template-block-hook)
-		 ("body"	   . vhdl-template-default-hook)
-		 ("buffer"	   . vhdl-template-default-hook)
-		 ("bus"	   . vhdl-template-default-hook)
-		 ("case"	   . vhdl-template-case-hook)
-		 ("comp"	   . vhdl-template-component-hook)
-		 ("component"	   . vhdl-template-component-hook)
-		 ("cond"	   . vhdl-template-conditional-signal-asst-hook)
-		 ("conditional"   . vhdl-template-conditional-signal-asst-hook)
-		 ("conf"	   . vhdl-template-configuration-hook)
+		 ("--"		. vhdl-template-display-comment-hook)
+		 ("abs"		. vhdl-template-default-hook)
+		 ("access"	. vhdl-template-default-hook)
+		 ("after"	. vhdl-template-default-hook)
+		 ("alias"	. vhdl-template-alias-hook)
+		 ("all"		. vhdl-template-default-hook)
+		 ("and"		. vhdl-template-default-hook)
+		 ("arch"	. vhdl-template-architecture-hook)
+		 ("architecture" . vhdl-template-architecture-hook)
+		 ("array"	. vhdl-template-default-hook)
+		 ("assert"	. vhdl-template-assert-hook)
+		 ("attr"	. vhdl-template-attribute-hook)
+		 ("attribute"	. vhdl-template-attribute-hook)
+		 ("begin"	. vhdl-template-default-indent-hook)
+		 ("block"	. vhdl-template-block-hook)
+		 ("body"	. vhdl-template-default-hook)
+		 ("buffer"	. vhdl-template-default-hook)
+		 ("bus"		. vhdl-template-default-hook)
+		 ("case"	. vhdl-template-case-hook)
+		 ("comp"	. vhdl-template-component-hook)
+		 ("component"	. vhdl-template-component-hook)
+		 ("cond"	. vhdl-template-conditional-signal-asst-hook)
+		 ("conditional"	. vhdl-template-conditional-signal-asst-hook)
+		 ("conf"	. vhdl-template-configuration-hook)
 		 ("configuration" . vhdl-template-configuration-hook)
-		 ("cons"	   . vhdl-template-constant-hook)
-		 ("constant"	   . vhdl-template-constant-hook)
-		 ("context"	   . vhdl-template-context-hook)
-		 ("disconnect"	   . vhdl-template-disconnect-hook)
-		 ("downto"	   . vhdl-template-default-hook)
-		 ("else"	   . vhdl-template-else-hook)
-		 ("elseif"	   . vhdl-template-elsif-hook)
-		 ("elsif"	   . vhdl-template-elsif-hook)
-		 ("end"	   . vhdl-template-default-indent-hook)
-		 ("entity"	   . vhdl-template-entity-hook)
-		 ("exit"	   . vhdl-template-exit-hook)
-		 ("file"	   . vhdl-template-file-hook)
-		 ("for"	   . vhdl-template-for-hook)
-		 ("func"	   . vhdl-template-function-hook)
-		 ("function"	   . vhdl-template-function-hook)
-		 ("generic"	   . vhdl-template-generic-hook)
-		 ("group"	   . vhdl-template-group-hook)
-		 ("guarded"	   . vhdl-template-default-hook)
-		 ("if"		   . vhdl-template-if-hook)
-		 ("impure"	   . vhdl-template-default-hook)
-		 ("in"		   . vhdl-template-default-hook)
-		 ("inertial"	   . vhdl-template-default-hook)
-		 ("inout"	   . vhdl-template-default-hook)
-		 ("inst"	   . vhdl-template-instance-hook)
-		 ("instance"	   . vhdl-template-instance-hook)
-		 ("is"		   . vhdl-template-default-hook)
-		 ("label"	   . vhdl-template-default-hook)
-		 ("library"	   . vhdl-template-library-hook)
-		 ("linkage"	   . vhdl-template-default-hook)
-		 ("literal"	   . vhdl-template-default-hook)
-		 ("loop"	   . vhdl-template-bare-loop-hook)
-		 ("map"	   . vhdl-template-map-hook)
-		 ("mod"	   . vhdl-template-default-hook)
-		 ("nand"	   . vhdl-template-default-hook)
-		 ("new"	   . vhdl-template-default-hook)
-		 ("next"	   . vhdl-template-next-hook)
-		 ("nor"	   . vhdl-template-default-hook)
-		 ("not"	   . vhdl-template-default-hook)
-		 ("null"	   . vhdl-template-default-hook)
-		 ("of"		   . vhdl-template-default-hook)
-		 ("on"		   . vhdl-template-default-hook)
-		 ("open"	   . vhdl-template-default-hook)
-		 ("or"		   . vhdl-template-default-hook)
-		 ("others"	   . vhdl-template-others-hook)
-		 ("out"	   . vhdl-template-default-hook)
-		 ("pack"	   . vhdl-template-package-hook)
-		 ("package"	   . vhdl-template-package-hook)
-		 ("port"	   . vhdl-template-port-hook)
-		 ("postponed"	   . vhdl-template-default-hook)
-		 ("procedure"	   . vhdl-template-procedure-hook)
-		 ("process"	   . vhdl-template-process-hook)
-		 ("protected"	   . vhdl-template-default-hook)
-		 ("pure"	   . vhdl-template-default-hook)
-		 ("range"	   . vhdl-template-default-hook)
-		 ("record"	   . vhdl-template-default-hook)
-		 ("register"	   . vhdl-template-default-hook)
-		 ("reject"	   . vhdl-template-default-hook)
-		 ("rem"	   . vhdl-template-default-hook)
-		 ("report"	   . vhdl-template-report-hook)
-		 ("return"	   . vhdl-template-return-hook)
-		 ("rol"	   . vhdl-template-default-hook)
-		 ("ror"	   . vhdl-template-default-hook)
-		 ("select"	   . vhdl-template-selected-signal-asst-hook)
-		 ("severity"	   . vhdl-template-default-hook)
-		 ("shared"	   . vhdl-template-default-hook)
-		 ("sig"	   . vhdl-template-signal-hook)
-		 ("signal"	   . vhdl-template-signal-hook)
-		 ("sla"	   . vhdl-template-default-hook)
-		 ("sll"	   . vhdl-template-default-hook)
-		 ("sra"	   . vhdl-template-default-hook)
-		 ("srl"	   . vhdl-template-default-hook)
-		 ("subtype"	   . vhdl-template-subtype-hook)
-		 ("then"	   . vhdl-template-default-hook)
-		 ("to"		   . vhdl-template-default-hook)
-		 ("transport"	   . vhdl-template-default-hook)
-		 ("type"	   . vhdl-template-type-hook)
-		 ("unaffected"	   . vhdl-template-default-hook)
-		 ("units"	   . vhdl-template-default-hook)
-		 ("until"	   . vhdl-template-default-hook)
-		 ("use"	   . vhdl-template-use-hook)
-		 ("var"	   . vhdl-template-variable-hook)
-		 ("variable"	   . vhdl-template-variable-hook)
-		 ("wait"	   . vhdl-template-wait-hook)
-		 ("when"	   . vhdl-template-when-hook)
-		 ("while"	   . vhdl-template-while-loop-hook)
-		 ("with"	   . vhdl-template-with-hook)
-		 ("xnor"	   . vhdl-template-default-hook)
-		 ("xor"	   . vhdl-template-default-hook)
+		 ("cons"	. vhdl-template-constant-hook)
+		 ("constant"	. vhdl-template-constant-hook)
+		 ("context"	. vhdl-template-context-hook)
+		 ("disconnect"	. vhdl-template-disconnect-hook)
+		 ("downto"	. vhdl-template-default-hook)
+		 ("else"	. vhdl-template-else-hook)
+		 ("elseif"	. vhdl-template-elsif-hook)
+		 ("elsif"	. vhdl-template-elsif-hook)
+		 ("end"		. vhdl-template-default-indent-hook)
+		 ("entity"	. vhdl-template-entity-hook)
+		 ("exit"	. vhdl-template-exit-hook)
+		 ("file"	. vhdl-template-file-hook)
+		 ("for"		. vhdl-template-for-hook)
+		 ("func"	. vhdl-template-function-hook)
+		 ("function"	. vhdl-template-function-hook)
+		 ("generic"	. vhdl-template-generic-hook)
+		 ("group"	. vhdl-template-group-hook)
+		 ("guarded"	. vhdl-template-default-hook)
+		 ("if"		. vhdl-template-if-hook)
+		 ("impure"	. vhdl-template-default-hook)
+		 ("in"		. vhdl-template-default-hook)
+		 ("inertial"	. vhdl-template-default-hook)
+		 ("inout"	. vhdl-template-default-hook)
+		 ("inst"	. vhdl-template-instance-hook)
+		 ("instance"	. vhdl-template-instance-hook)
+		 ("is"		. vhdl-template-default-hook)
+		 ("label"	. vhdl-template-default-hook)
+		 ("library"	. vhdl-template-library-hook)
+		 ("linkage"	. vhdl-template-default-hook)
+		 ("literal"	. vhdl-template-default-hook)
+		 ("loop"	. vhdl-template-bare-loop-hook)
+		 ("map"		. vhdl-template-map-hook)
+		 ("mod"		. vhdl-template-default-hook)
+		 ("nand"	. vhdl-template-default-hook)
+		 ("new"		. vhdl-template-default-hook)
+		 ("next"	. vhdl-template-next-hook)
+		 ("nor"		. vhdl-template-default-hook)
+		 ("not"		. vhdl-template-default-hook)
+		 ("null"	. vhdl-template-default-hook)
+		 ("of"		. vhdl-template-default-hook)
+		 ("on"		. vhdl-template-default-hook)
+		 ("open"	. vhdl-template-default-hook)
+		 ("or"		. vhdl-template-default-hook)
+		 ("others"	. vhdl-template-others-hook)
+		 ("out"		. vhdl-template-default-hook)
+		 ("pack"	. vhdl-template-package-hook)
+		 ("package"	. vhdl-template-package-hook)
+		 ("port"	. vhdl-template-port-hook)
+		 ("postponed"	. vhdl-template-default-hook)
+		 ("procedure"	. vhdl-template-procedure-hook)
+		 ("process"	. vhdl-template-process-hook)
+		 ("protected"	. vhdl-template-default-hook)
+		 ("pure"	. vhdl-template-default-hook)
+		 ("range"	. vhdl-template-default-hook)
+		 ("record"	. vhdl-template-default-hook)
+		 ("register"	. vhdl-template-default-hook)
+		 ("reject"	. vhdl-template-default-hook)
+		 ("rem"		. vhdl-template-default-hook)
+		 ("report"	. vhdl-template-report-hook)
+		 ("return"	. vhdl-template-return-hook)
+		 ("rol"		. vhdl-template-default-hook)
+		 ("ror"		. vhdl-template-default-hook)
+		 ("select"	. vhdl-template-selected-signal-asst-hook)
+		 ("severity"	. vhdl-template-default-hook)
+		 ("shared"	. vhdl-template-default-hook)
+		 ("sig"		. vhdl-template-signal-hook)
+		 ("signal"	. vhdl-template-signal-hook)
+		 ("sla"		. vhdl-template-default-hook)
+		 ("sll"		. vhdl-template-default-hook)
+		 ("sra"		. vhdl-template-default-hook)
+		 ("srl"		. vhdl-template-default-hook)
+		 ("subtype"	. vhdl-template-subtype-hook)
+		 ("then"	. vhdl-template-default-hook)
+		 ("to"		. vhdl-template-default-hook)
+		 ("transport"	. vhdl-template-default-hook)
+		 ("type"	. vhdl-template-type-hook)
+		 ("unaffected"	. vhdl-template-default-hook)
+		 ("units"	. vhdl-template-default-hook)
+		 ("until"	. vhdl-template-default-hook)
+		 ("use"		. vhdl-template-use-hook)
+		 ("var"		. vhdl-template-variable-hook)
+		 ("variable"	. vhdl-template-variable-hook)
+		 ("wait"	. vhdl-template-wait-hook)
+		 ("when"	. vhdl-template-when-hook)
+		 ("while"	. vhdl-template-while-loop-hook)
+		 ("with"	. vhdl-template-with-hook)
+		 ("xnor"	. vhdl-template-default-hook)
+		 ("xor"		. vhdl-template-default-hook)
 		 )))
      ;; VHDL-AMS keywords
      (when (and (memq 'vhdl vhdl-electric-keywords) (vhdl-standard-p 'ams))
@@ -3215,19 +3225,19 @@ STRING are replaced by `-' and substrings are converted to lower case."
 		   (lambda (x) (list (car x) "" (cdr x) 0))
 		 (lambda (x) (list (car x) "" (cdr x) 0 'system)))
 	       '(
-		 ("across"     . vhdl-template-default-hook)
-		 ("break"      . vhdl-template-break-hook)
-		 ("limit"      . vhdl-template-limit-hook)
-		 ("nature"     . vhdl-template-nature-hook)
-		 ("noise"      . vhdl-template-default-hook)
-		 ("procedural" . vhdl-template-procedural-hook)
-		 ("quantity"   . vhdl-template-quantity-hook)
-		 ("reference"  . vhdl-template-default-hook)
-		 ("spectrum"   . vhdl-template-default-hook)
-		 ("subnature"  . vhdl-template-subnature-hook)
-		 ("terminal"   . vhdl-template-terminal-hook)
-		 ("through"    . vhdl-template-default-hook)
-		 ("tolerance"  . vhdl-template-default-hook)
+		 ("across"	. vhdl-template-default-hook)
+		 ("break"	. vhdl-template-break-hook)
+		 ("limit"	. vhdl-template-limit-hook)
+		 ("nature"	. vhdl-template-nature-hook)
+		 ("noise"	. vhdl-template-default-hook)
+		 ("procedural"	. vhdl-template-procedural-hook)
+		 ("quantity"	. vhdl-template-quantity-hook)
+		 ("reference"	. vhdl-template-default-hook)
+		 ("spectrum"	. vhdl-template-default-hook)
+		 ("subnature"	. vhdl-template-subnature-hook)
+		 ("terminal"	. vhdl-template-terminal-hook)
+		 ("through"	. vhdl-template-default-hook)
+		 ("tolerance"	. vhdl-template-default-hook)
 		 )))
      ;; user model keywords
      (when (memq 'user vhdl-electric-keywords)
@@ -3450,7 +3460,8 @@ STRING are replaced by `-' and substrings are converted to lower case."
 	 ["Attribute (Decl)"	vhdl-template-attribute-decl t]
 	 ["Attribute (Spec)"	vhdl-template-attribute-spec t]
 	 ["Block"		vhdl-template-block t]
-	 ["Case"		vhdl-template-case-is t]
+	 ["Case (Generate)"	vhdl-template-case-generate t]
+	 ["Case (Is)"		vhdl-template-case-is t]
 	 ["Component (Decl)"	vhdl-template-component-decl t]
 	 ["(Component) Instance"	vhdl-template-component-inst t]
 	 ["Conditional (Signal Asst)"	vhdl-template-conditional-signal-asst t]
@@ -4035,6 +4046,7 @@ STRING are replaced by `-' and substrings are converted to lower case."
 				(not vhdl-testbench-include-library))
 	:style toggle :selected vhdl-testbench-include-library]
        ["Include Libraries..." (customize-option 'vhdl-testbench-include-libraries) t]
+       ["Include Custom Library Clause..." (customize-option 'vhdl-testbench-include-custom-library) t]
        ["Include Configuration"
 	(customize-set-variable 'vhdl-testbench-include-configuration
 				(not vhdl-testbench-include-configuration))
@@ -7249,7 +7261,10 @@ is not moved."
 	      ;; CASE 4.1
 	      (progn (forward-sexp) (vhdl-beginning-of-statement-1 nil)))
 	  (vhdl-backward-skip-label (vhdl-point 'boi))
-	  (vhdl-add-syntax 'block-open (point)))
+	  (if (looking-at "\\w+\\s-*:\\s-*case\\s-.*\\s-generate[ \t\n\r\f]+when")
+	      ;; special case: 'begin'/'end' of case-generate aligned with 'when'
+	      (vhdl-add-syntax 'block-open (+ (point) vhdl-basic-offset))
+	    (vhdl-add-syntax 'block-open (point))))
 	 ;; CASE 5: block close brace
 	 (end-after-ip
 	  (goto-char containing-sexp)
@@ -9124,7 +9139,40 @@ Turn on if ARG positive, turn off if ARG negative, toggle if ARG zero or nil."
       (delete-region position (point)))
     (insert ";")))
 
-(defun vhdl-template-case (&optional kind)
+(defun vhdl-template-case ()
+  "Insert a case-is if within a sequential statement part (subprogram
+or process), a case-use for AMS, and a case-generate otherwise."
+  (interactive)
+  (vhdl-prepare-search-1
+   (cond
+    ((vhdl-sequential-statement-p)	; sequential statement
+     (vhdl-template-case-is-use 'is))
+    ((and (vhdl-standard-p 'ams)	; AMS use statement
+	  (eq (vhdl-decision-query nil "(g)enerate or (u)se") ?u))
+     (vhdl-template-case-is-use 'use))
+    (t (vhdl-template-case-generate))))) ; concurrent statement
+
+(defun vhdl-template-case-generate ()
+  "Insert a case-generate."
+  (interactive)
+  (let ((margin (current-indentation))
+	(start (point))
+	label position)
+    (vhdl-insert-keyword ": CASE ")
+    (setq position (point-marker))
+    (goto-char start)
+    (when (setq label (vhdl-template-field "label" nil t start position))
+      (goto-char position)
+      (vhdl-template-field "expression")
+      (vhdl-template-generate-body margin label)
+      (vhdl-insert-keyword "WHEN ")
+      (let ((position (point)))
+	(insert " => ;\n")
+	(indent-to (+ margin vhdl-basic-offset))
+	(vhdl-insert-keyword "WHEN OTHERS => null;")
+	(goto-char position)))))
+
+(defun vhdl-template-case-is-use (&optional kind)
   "Insert a case statement."
   (interactive)
   (let ((margin (current-indentation))
@@ -9158,12 +9206,12 @@ Turn on if ARG positive, turn off if ARG negative, toggle if ARG zero or nil."
 (defun vhdl-template-case-is ()
   "Insert a sequential case statement."
   (interactive)
-  (vhdl-template-case 'is))
+  (vhdl-template-case-is-use 'is))
 
 (defun vhdl-template-case-use ()
   "Insert a simultaneous case statement."
   (interactive)
-  (vhdl-template-case 'use))
+  (vhdl-template-case-is-use 'use))
 
 (defun vhdl-template-component ()
   "Insert a component declaration."
@@ -9648,9 +9696,11 @@ otherwise."
 (defun vhdl-template-generate ()
   "Insert a generation scheme."
   (interactive)
-  (if (eq (vhdl-decision-query nil "(f)or or (i)f?" t) ?i)
-      (vhdl-template-if-generate)
-    (vhdl-template-for-generate)))
+  (let ((decision (vhdl-decision-query nil "(c)ase, (f)or or (i)f" t)))
+    (cond
+     ((eq decision ?c) (vhdl-template-case-generate))
+     ((eq decision ?f) (vhdl-template-for-generate))
+     (t (vhdl-template-if-generate)))))
 
 (defun vhdl-template-generic ()
   "Insert generic declaration, or generic map in instantiation statements."
@@ -12511,7 +12561,11 @@ reflected in a subsequent paste operation."
 	    (vhdl-template-package-std-logic-misc) (insert "\n"))
 	  (when (nth 8 vhdl-testbench-include-libraries)
 	    (vhdl-template-package-std-logic-textio) (insert "\n"))
-	  (insert "\n\n") (vhdl-comment-display-line) (insert "\n\n"))
+	  (unless (equal "" vhdl-testbench-include-custom-library)
+	    (setq position (point))
+	    (vhdl-insert-string-or-file vhdl-testbench-include-custom-library)
+	    (vhdl-indent-region position (point)))
+	  (insert "\n") (vhdl-comment-display-line) (insert "\n\n"))
 	;; paste entity declaration
 	(vhdl-insert-keyword "ENTITY ")
 	(insert ent-name)
@@ -17833,6 +17887,7 @@ specified by a target."
        'vhdl-testbench-initialize-signals
        'vhdl-testbench-include-library
        'vhdl-testbench-include-libraries
+       'vhdl-testbench-include-custom-library
        'vhdl-testbench-include-configuration
        'vhdl-testbench-create-files
        'vhdl-testbench-entity-file-name

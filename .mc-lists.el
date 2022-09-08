@@ -5,6 +5,7 @@
       '(
         end-of-visual-line
         kill-visual-line
+        org-cycle
         org-delete-char
         org-self-insert-command
         vhdl-electric-comma
