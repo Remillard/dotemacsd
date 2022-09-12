@@ -383,6 +383,7 @@
               vhdl-underscore-is-part-of-word t
               vhdl-upper-case-enum-values t
               vhdl-use-direct-instantiation 'always
+              vhdl-compiler "Aldec"
               vhdl-platform-spec "Sim: Aldec Riviera-PRO, Synth: Vendor Toolchain (Quartus/Vivado)")
 ;; Setting up preferred header string
 (setq-default vhdl-modify-date-prefix-string "-- Last update : ")
@@ -409,7 +410,9 @@
 ;; Testbench settings
 (setq-default vhdl-testbench-include-configuration nil
               vhdl-testbench-include-header t
-              vhdl-testbench-include-library t)
+              vhdl-testbench-include-library t
+              vhdl-testbench-include-libraries '(nil t t t nil nil nil nil t)
+              vhdl-testbench-include-custom-library "use work.tb_util_pkg.all;")
 (setq-default vhdl-testbench-statements "\
     ------------------------------------------------------------
     -- Clocks and Reset
