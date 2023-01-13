@@ -117,6 +117,7 @@
 ;; - wget -O en_US.dic https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic?id=a4473e06b56bfe35187e302754f6baaa8d75e54f
 ;; - Place in "c:/Hunspell/" (or wherever DICPATH below is set.)
 ;;
+(message "---- Spelling")
 (setenv "LANG" "en_US")
 (setenv "DICTIONARY" "en_US")
 (setenv "DICPATH" (expand-file-name "c:/Hunspell/"))
@@ -275,7 +276,15 @@
 ;; Completion package from Crafted Emacs which puts in a bunch of stuff with
 ;; decent configurations.
 ;;
+(message "---- Completion (Crafted Emacs module)")
 (require 'crafted-completion)
+;;
+;; Org settings package from Crafted Emacs making a few basic settings for
+;; org-mode.
+;; 
+;;
+(message "---- Org Mode (Crafted Emacs module)")
+(require 'crafted-org)
 ;;
 ;; Company completion tools When coming back to this (if ever) see reddit thread
 ;; where it is suggested how to debug it, and how to use dabbrev-code.
