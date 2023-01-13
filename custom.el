@@ -3,16 +3,30 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("969a67341a68becdccc9101dc87f5071b2767b75c0b199e0ded35bd8359ecd69" "f27c3fcfb19bf38892bc6e72d0046af7a1ded81f54435f9d4d09b3bff9c52fc1" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "6c4c97a17fc7b6c8127df77252b2d694b74e917bab167e7d3b53c769a6abb6d6" default))
+ '(completion-category-overrides '((file (styles partial-completion))))
+ '(completion-styles '(orderless basic))
+ '(corfu-auto t)
+ '(corfu-auto-delay 0.0)
+ '(corfu-auto-prefix 2)
+ '(corfu-cycle t)
+ '(corfu-echo-documentation 0.25 t)
  '(magit-git-executable "C:/Program Files/Git/cmd/git.exe")
  '(magit-repository-directories
    '(("c:/users/nor71443/projects" . 1)
      ("c:/users/nor71443/.emacs.d" . 0)))
+ '(marginalia-annotators
+   '(marginalia-annotators-heavy marginalia-annotators-light nil) t)
+ '(package-archive-priorities
+   '(("gnu" . 99)
+     ("nongnu" . 80)
+     ("stable" . 70)
+     ("melpa" . 0)))
  '(package-selected-packages
-   '(git-modes powershell pdf-tools move-text git-gutter magit yaml-mode treemacs-all-the-icons all-the-icons treemacs projectile yasnippet-snippets markdown-mode json-mode verilog-mode yasnippet yasnippets company-statistics company multiple-cursors deadgrep rainbow-delimiters rainbow-delimeters smartparens solaire-mode vscode-dark-plus-theme benchmark-init use-package))
+   '(corfu-terminal corfu yasnippet-snippets whole-line-or-region vscode-dark-plus-theme vertico use-package treemacs-all-the-icons solaire-mode smartparens rainbow-delimiters multiple-cursors move-text markdown-mode marginalia magit json-mode git-modes git-gutter doom-themes doom-modeline deadgrep counsel-etags consult cape bufler benchmark-init))
+ '(package-user-dir "c:/Users/nor71443/.emacs.d/elpa/")
+ '(vertico-cycle t)
  '(vhdl-compiler "Aldec")
- '(vhdl-project "IFF-45TS DIAC Board FPGA")
+ '(vhdl-project "AVX-10K FPGA")
  '(vhdl-project-alist
    '(("IFF-45TS DIAC Board FPGA" "IFF-45TS Next Generation w/ Arria 10 SX660 FPGA" "c:/Users/nor71443/projects/iff45ts-diac-fpga/"
       ("board_p1/src/" "common/src/")
@@ -24,37 +38,21 @@
       ""
       (("Aldec" "-dbg -2008 -work \\1" "-f \\1 top_level" nil))
       "sim/" "work" "sim/rp_onx10k_work/" "Makefile_\\2" "")))
- ;;'(vhdl-testbench-include-custom-library "use work.tb_util_pkg.all;")
- ;;'(vhdl-testbench-include-libraries '(nil t t t nil nil nil nil t))
- '(with-editor-emacsclient-executable "c:/Program Files/Emacs/emacs-28.1/bin/runemacs.exe"))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(treemacs-file-face ((t (:height 100 :family "Roboto"))))
-;;  '(treemacs-root-face ((t (:inherit treemacs-file-face :foreground "#d3869b" :underline t :weight bold :height 1.2))))
-;;  '(treemacs-directory-face ((t (:inherit treemacs-file-face :foreground "#fabd2f"))))
-;;  '(treemacs-git-added-face ((t (:inherit treemacs-file-face :foreground "#076678"))))
-;;  '(treemacs-git-conflict-face ((t (:inherit treemacs-file-face :foreground "#fb4933"))))
-;;  '(treemacs-git-ignored-face ((t (:inherit treemacs-file-face :foreground "#767676"))))
-;;  '(treemacs-git-modified-face ((t (:inherit treemacs-file-face :foreground "#83a598"))))
-;;  '(treemacs-git-renamed-face ((t (:inherit treemacs-file-face :foreground "#b8bb26"))))
-;;  '(treemacs-git-untracked-face ((t (:inherit treemacs-file-face :foreground "#bcbcbc"))))
-;;  '(treemacs-tags-face ((t (:inherit treemacs-file-face :foreground "#fe8019")))))
-;;(custom-set-faces
+ '(vhdl-testbench-include-custom-library "use work.tb_util_pkg.all;")
+ '(vhdl-testbench-include-libraries '(nil t t t nil nil nil nil t)))
+(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(default ((t (:family "Roboto Mono" :foundry "outline" :slant normal :weight normal :height 120 :width normal))))
- ;; '(treemacs-directory-face ((t (:inherit treemacs-file-face :foreground "#fabd2f"))))
- ;; '(treemacs-file-face ((t (:height 100 :family "Roboto"))))
- ;; '(treemacs-git-added-face ((t (:inherit treemacs-file-face :foreground "#076678"))))
- ;; '(treemacs-git-conflict-face ((t (:inherit treemacs-file-face :foreground "#fb4933"))))
- ;; '(treemacs-git-ignored-face ((t (:inherit treemacs-file-face :foreground "#767676"))))
- ;; '(treemacs-git-modified-face ((t (:inherit treemacs-file-face :foreground "#83a598"))))
- ;; '(treemacs-git-renamed-face ((t (:inherit treemacs-file-face :foreground "#b8bb26"))))
- ;; '(treemacs-git-untracked-face ((t (:inherit treemacs-file-face :foreground "#bcbcbc"))))
- ;; '(treemacs-root-face ((t (:inherit treemacs-file-face :foreground "#d3869b" :underline t :weight bold :height 1.2))))
- ;; '(treemacs-tags-face ((t (:inherit treemacs-file-face :foreground "#fe8019")))))
+ '(default ((t (:family "Roboto Mono" :foundry "outline" :slant normal :weight normal :height 120 :width normal))))
+ '(treemacs-directory-face ((t (:inherit treemacs-file-face :foreground "#fabd2f"))))
+ '(treemacs-file-face ((t (:height 100 :family "Roboto"))))
+ '(treemacs-git-added-face ((t (:inherit treemacs-file-face :foreground "#076678"))))
+ '(treemacs-git-conflict-face ((t (:inherit treemacs-file-face :foreground "#fb4933"))))
+ '(treemacs-git-ignored-face ((t (:inherit treemacs-file-face :foreground "#767676"))))
+ '(treemacs-git-modified-face ((t (:inherit treemacs-file-face :foreground "#83a598"))))
+ '(treemacs-git-renamed-face ((t (:inherit treemacs-file-face :foreground "#b8bb26"))))
+ '(treemacs-git-untracked-face ((t (:inherit treemacs-file-face :foreground "#bcbcbc"))))
+ '(treemacs-root-face ((t (:inherit treemacs-file-face :foreground "#d3869b" :underline t :weight bold :height 1.2))))
+ '(treemacs-tags-face ((t (:inherit treemacs-file-face :foreground "#fe8019")))))

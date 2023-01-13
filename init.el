@@ -7,26 +7,31 @@
 ;;
 ;; FILE LOCATIONS
 ;; Emacs Customization File
-(setq custom-file (concat user-emacs-directory "custom.el"))
+;;
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
-;; Temporary Directory
+(put 'dired-find-alternate-file 'disabled nil)
+;;
+;; Temporary Directory for backups and whatnot.
+;;
 (setq temporary-file-directory "c:/temp/")
 ;;
-;; Setting up package archives
+;; Additional modules (some from Crafted Emacs)
 ;;
-(require 'package)
-(setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")))
-(setq package-archive-priorities
-      '(("melpa" . 9)
-        ("org" . 10)
-        ("gnu" . 5)))
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+(add-to-list 'load-path (expand-file-name "site-lisp/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "crafted-lisp/" user-emacs-directory))
+;;
+;; Setting up package retrieval with `package.el` and using Crafted Emacs
+;; bootstrap file.
+;;
+(defvar crafted-config-path user-emacs-directory)
+(defvar crafted-config-var-directory (expand-file-name "var/" crafted-config-path))
+(defvar crafted-config-etc-directory (expand-file-name "etc/" crafted-config-path))
+(defvar crafted-bootstrap-directory (expand-file-name "crafted-lisp/" crafted-config-path)
+  "Crafted Emacs lisp module location")
+(load (expand-file-name "crafted-package.el" crafted-bootstrap-directory))
+(crafted-package-bootstrap crafted-package-system)
 ;;
 ;; Setup use-package
 ;;
@@ -43,9 +48,9 @@
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 (add-hook 'after-init-hook (lambda () (message "loaded in %s" (emacs-init-time))))
 ;;
-;; Increasing the garbage collection threshold
-;; The default garbage collection threshold is 800 kB, and increasing
-;; this to 10 MB for startup increases the speed.
+;; Increasing the garbage collection threshold The default garbage collection
+;; threshold is 800 kB, and increasing this to 10 MB for start up increases the
+;; speed.
 ;;
 (setq gc-cons-threshold 10000000)
 ;;
@@ -56,14 +61,6 @@
 	    (setq gc-cons-threshold 1000000)
 	    (message "gc-cons-threshold restored to %S"
 		         gc-cons-threshold)))
-;;
-;; Hotkey for configuration file
-;;
-(defun find-config ()
-  "Edit init.el"
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-(global-set-key (kbd "C-c I") 'find-config)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -112,8 +109,30 @@
 (setq recentf-max-saved-items 25)
 (run-at-time nil (* 5 60) 'recentf-save-list)
 ;;
+;; Spelling (requires Hunspell and dictionaries.
+;; Via Chocolatey:
+;; - choco install hunspell.portable
+;; Libraries:
+;; - wget -O en_US.aff https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff?id=a4473e06b56bfe35187e302754f6baaa8d75e54f
+;; - wget -O en_US.dic https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic?id=a4473e06b56bfe35187e302754f6baaa8d75e54f
+;; - Place in "c:/Hunspell/" (or wherever DICPATH below is set.)
+;;
+(setenv "LANG" "en_US")
+(setenv "DICTIONARY" "en_US")
+(setenv "DICPATH" (expand-file-name "c:/Hunspell/"))
+(setq ispell-program-name (executable-find "hunspell")
+      flyspell-issue-message-flag t
+      ispell-highlight-p t
+      ispell-silently-savep t
+      ispell-current-dictionary "en_US"
+      ispell-hunspell-dict-paths-alist
+      '(("en_US" "c:/Hunspell/en_US.aff"))
+      ispell-dictionary "en_US")
+(add-hook 'text-mode-hook #'flyspell-mode)
+(add-hook 'prog-mode-hook #'flyspell-prog-mode)
+;;
 ;; Personal Information Settings
-;; This way I can have a identity for work and one for home and just
+;; This way I can have an identity for work and one for home and just
 ;; change that file by itself.
 ;;
 (setq personal-info-file (concat user-emacs-directory "site-lisp/personal-info.el"))
@@ -130,14 +149,25 @@
 ;;
 (message "==== Setting up client appearance ====")
 (use-package all-the-icons
+  :ensure t
   :if (display-graphic-p))
-(use-package vscode-dark-plus-theme
-  :disabled
+(use-package vscode-dark-plus-theme)
+(use-package doom-themes
+  :ensure t
   :config
-  (load-theme 'vscode-dark-plus t))
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-hard))
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (setq doom-themes-treemacs-theme "doom-colors")
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
+;;
+;; Doom Modeline
+;;
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
 ;;
 ;; Font(s)
 ;;
@@ -166,6 +196,7 @@
 ;; Client look and feel
 ;;
 (global-visual-line-mode 1)
+(menu-bar-mode 1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (display-time-mode)
@@ -241,17 +272,39 @@
          ("<C-M-up>" . mc/mark-previous-like-this)
          ("C-M-<mouse-1>" . mc/add-cursor-on-click)))
 ;;
-;; Company completion tools
+;; Completion package from Crafted Emacs which puts in a bunch of stuff with
+;; decent configurations.
 ;;
-(message "---- Company")
-(use-package company
+(require 'crafted-completion)
+;;
+;; Company completion tools When coming back to this (if ever) see reddit thread
+;; where it is suggested how to debug it, and how to use dabbrev-code.
+;;
+;; (message "---- Company")
+;; (use-package company
+;;   :config
+;;   (setq company-backends '(company-dabbrev))
+;;   (setq company-dabbrev-ignore-case nil)
+;;   (setq company-dabbrev-downcase nil)
+;;   :init
+;;   (global-company-mode 1))
+;; (use-package company-statistics
+;;   :hook
+;;   (after-init-hook . company-statistics-mode))
+;;
+;; Counsel
+;;
+(message "---- Counsel Etags")
+(use-package counsel-etags
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook
+                        'counsel-etags-virtual-update-tags 'append 'local)))
   :config
-  (global-company-mode t)
-  (setq company-dabbrev-ignore-case 'keep-prefix)
-  (setq company-dabbrev-downcase nil))
-(use-package company-statistics
-  :hook
-  (after-init-hook . company-statistics-mode))
+  (setq counsel-etags-update-interval 60)
+  (push "build" counsel-etags-ignore-directories))
 ;;
 ;; Snippet support
 ;;
@@ -291,20 +344,6 @@
   ;; in size and is used to handle alignment in the sidebar.
   ;; Then it calls treemacs-load-theme for all-the-icons.
   (treemacs-load-all-the-icons-with-workaround-font "Hermit"))
-;; Face colors setup for Gruvbox
-(custom-theme-set-faces
- 'user
- '(treemacs-file-face ((t (:height 100 :family "Roboto"))))
- '(treemacs-root-face ((t (:inherit treemacs-file-face :foreground "#d3869b" :underline t :weight bold :height 1.2))))
- '(treemacs-directory-face ((t (:inherit treemacs-file-face :foreground "#fabd2f"))))
- '(treemacs-git-added-face ((t (:inherit treemacs-file-face :foreground "#076678"))))
- '(treemacs-git-conflict-face ((t (:inherit treemacs-file-face :foreground "#fb4933"))))
- '(treemacs-git-ignored-face ((t (:inherit treemacs-file-face :foreground "#767676"))))
- '(treemacs-git-modified-face ((t (:inherit treemacs-file-face :foreground "#83a598"))))
- '(treemacs-git-renamed-face ((t (:inherit treemacs-file-face :foreground "#b8bb26"))))
- '(treemacs-git-untracked-face ((t (:inherit treemacs-file-face :foreground "#bcbcbc"))))
- '(treemacs-tags-face ((t (:inherit treemacs-file-face :foreground "#fe8019")))))
-                        
 ;;
 ;; Magit
 ;;
@@ -317,13 +356,29 @@
   (global-git-gutter-mode 't))
 (use-package git-modes)
 
+;;
+;; Bufler (Buffer Butler)
+;;
+(message "---- Bufler")
+(use-package bufler
+  :bind
+  ("C-x C-b" . bufler-list)
+  :config
+  (bufler-mode))
+;;
+;; Whole line or region
+;;
+(use-package whole-line-or-region
+  :config
+  (whole-line-or-region-global-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; KEYBINDS
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "==== Non use-package keybinding ====")
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; Set this if not using Bufler
+;;(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
@@ -332,11 +387,23 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "<mouse-4>") 'treemacs)
+(global-set-key (kbd "M-i") 'imenu)
+(global-set-key (kbd "<f6>") 'counsel-etags-find-tag-at-point)
+(global-set-key (kbd "<f7>") 'ispell-word)
+(global-set-key (kbd "<f8>") 'flyspell-correct-word)
 
 ;; Movement
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 (setq windmove-wrap-around t)
+;;
+;; Hotkey for configuration file
+;;
+(defun find-config ()
+  "Edit init.el"
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+(global-set-key (kbd "C-c I") 'find-config)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -484,9 +551,15 @@
 ;;
 (use-package markdown-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; CUSTOM FUNCTIONS
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "==== Custom Functions ====")
+(defun avx10k-dired ()
+  (interactive)
+  (let ((first-address (read-string "Unit address: ")))
+    (dired (concat "/plink:root@" first-address "|ssh:root@192.168.100.11:/root"))))
+
 (message "==== End of init.el ====")
-
-
-
-
-

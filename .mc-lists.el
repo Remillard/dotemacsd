@@ -3,20 +3,31 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        beginning-of-visual-line
         end-of-visual-line
+        kill-region
         kill-visual-line
         org-cycle
         org-delete-char
         org-self-insert-command
         vhdl-electric-comma
+        vhdl-electric-dash
         vhdl-electric-period
         vhdl-electric-semicolon
         vhdl-electric-space
         vhdl-electric-tab
+        whole-line-or-region-kill-ring-save
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        beginning-of-buffer
+        isearch-forward-symbol-at-point
         mouse-drag-region-rectangle
+        next-error
+        suspend-frame
+        switch-to-buffer
+        vhdl-beautify-buffer
         vhdl-compile
+        vhdl-electric-quote
         ))
