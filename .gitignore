@@ -17,9 +17,10 @@ elpa/
 eshell/
 server/
 transient/
-
+org-persist/
 logs/
-
+#
+# Local session files
 tramp
-
 projects
+

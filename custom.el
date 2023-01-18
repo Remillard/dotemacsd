@@ -19,7 +19,7 @@
  '(marginalia-annotators
    '(marginalia-annotators-heavy marginalia-annotators-light nil) t)
  '(package-selected-packages
-   '(org-appear corfu-terminal corfu yasnippet-snippets whole-line-or-region vscode-dark-plus-theme vertico use-package treemacs-all-the-icons solaire-mode smartparens rainbow-delimiters multiple-cursors move-text markdown-mode marginalia magit json-mode git-modes git-gutter doom-themes doom-modeline deadgrep counsel-etags consult cape bufler benchmark-init))
+   '(org org-contacts org-appear corfu-terminal corfu yasnippet-snippets whole-line-or-region vscode-dark-plus-theme vertico use-package treemacs-all-the-icons solaire-mode smartparens rainbow-delimiters multiple-cursors move-text markdown-mode marginalia magit json-mode git-modes git-gutter doom-themes doom-modeline deadgrep counsel-etags consult cape bufler benchmark-init))
  '(package-user-dir "c:/Users/nor71443/.emacs.d/elpa/")
  '(vertico-cycle t)
  '(vhdl-compiler "Aldec")
