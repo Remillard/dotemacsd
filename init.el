@@ -86,6 +86,8 @@
 
 (put 'downcase-region 'disabled nil) ;; Eliminates irritating warning message
 (put 'upcase-region 'disabled nil)   ;; Eliminates irritating warning message
+
+(setq dired-listing-switches "-aBhl --group-directories-first")
 ;;
 ;; Revert buffers when the underlying file has changed
 ;;
@@ -172,10 +174,10 @@
 ;;
 ;; Font(s)
 ;;
-;;(set-frame-font "Inconsolata 14" nil t)
-(set-frame-font "Roboto Mono 12" nil t)
+(set-frame-font "Inconsolata 14" nil t)
+;;(set-frame-font "Roboto Mono 12" nil t)
 ;;(set-frame-font "Consolas 14" nil t)
-;;(set-frame-font "Cascadia Code 14" nil t)
+;;(set-frame-font "Cascadia Code Light 12" nil t)
 ;;(set-frame-font "Fira Code 13" nil t)
 ;;
 ;; Frame position and size
@@ -400,6 +402,10 @@
 (global-set-key (kbd "<f6>") 'counsel-etags-find-tag-at-point)
 (global-set-key (kbd "<f7>") 'ispell-word)
 (global-set-key (kbd "<f8>") 'flyspell-correct-word)
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C-=") 'text-scale-decrease)
+(global-unset-key (kbd "C-<wheel-up>"))
+(global-unset-key (kbd "C-<wheel-down>"))
 
 ;; Movement
 (when (fboundp 'windmove-default-keybindings)
@@ -413,6 +419,19 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 (global-set-key (kbd "C-c I") 'find-config)
+;;
+;; Jira Jump
+;;
+;; (use-package jira-jump
+;;   :load-path "site-lisp/jira-jump/"
+;;   :ensure
+;;   :config
+;;   (setq jira-jump--projects
+;;       '(("EAR" . ((instance . "https://jira1.ds.jdsu.net/jira")
+;;                       (projects . ("AVX10K-"))))
+;;         ("ITAR" . ((instance . "http://wic-jira.viavisolutions.com")
+;;                    (projects . ("IFF45TS-")))))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -559,6 +578,16 @@
 ;; Markdown
 ;;
 (use-package markdown-mode)
+;;
+;; Python
+;;
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+(use-package python-black)
+(eval-after-load 'python
+  '(define-key python-mode-map (kbd "C-c C-b") 'python-black-buffer))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

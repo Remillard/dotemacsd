@@ -18,9 +18,12 @@
      ("c:/users/nor71443/.emacs.d" . 0)))
  '(marginalia-annotators
    '(marginalia-annotators-heavy marginalia-annotators-light nil) t)
+ '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(org org-contacts org-appear corfu-terminal corfu yasnippet-snippets whole-line-or-region vscode-dark-plus-theme vertico use-package treemacs-all-the-icons solaire-mode smartparens rainbow-delimiters multiple-cursors move-text markdown-mode marginalia magit json-mode git-modes git-gutter doom-themes doom-modeline deadgrep counsel-etags consult cape bufler benchmark-init))
+   '(elpy jira-jump mastodon python-black orderless embark-consult embark org org-contacts org-appear corfu-terminal corfu yasnippet-snippets whole-line-or-region vscode-dark-plus-theme vertico use-package treemacs-all-the-icons solaire-mode smartparens rainbow-delimiters multiple-cursors move-text markdown-mode marginalia magit json-mode git-modes git-gutter doom-themes doom-modeline deadgrep counsel-etags consult cape bufler benchmark-init))
  '(package-user-dir "c:/Users/nor71443/.emacs.d/elpa/")
+ '(python-black-command "c:/Python310/Scripts/black.exe")
+ '(python-black-extra-args nil)
  '(vertico-cycle t)
  '(vhdl-compiler "Aldec")
  '(vhdl-project "AVX-10K FPGA")

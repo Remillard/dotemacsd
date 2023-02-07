@@ -24,3 +24,7 @@ logs/
 tramp
 projects
 
+
+elpy/
+
+site-lisp/jira-jump/

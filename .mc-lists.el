@@ -10,12 +10,15 @@
         org-cycle
         org-delete-char
         org-self-insert-command
+        tcl-electric-hash
+        upcase-region
         vhdl-electric-comma
         vhdl-electric-dash
         vhdl-electric-period
         vhdl-electric-semicolon
         vhdl-electric-space
         vhdl-electric-tab
+        whole-line-or-region-kill-region
         whole-line-or-region-kill-ring-save
         ))
 

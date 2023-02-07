@@ -24,6 +24,9 @@
 (customize-set-variable 'org-hide-emphasis-markers t)
 (add-hook 'org-mode-hook 'org-appear-mode)
 
+;; Setup Org Indent Mode
+(customize-set-variable 'org-startup-indented t)
+
 ;; disable auto-pairing of "<" in org-mode
 ;; (add-hook 'org-mode-hook (lambda ()
 ;;     (setq-local electric-pair-inhibit-predicate
