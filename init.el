@@ -174,6 +174,7 @@
 ;;
 ;; Font(s)
 ;;
+(setq text-scale-mode-step 1.07)
 (set-frame-font "Inconsolata 14" nil t)
 ;;(set-frame-font "Roboto Mono 12" nil t)
 ;;(set-frame-font "Consolas 14" nil t)
@@ -382,6 +383,27 @@
 (use-package whole-line-or-region
   :config
   (whole-line-or-region-global-mode))
+;;
+;; Denote
+;;
+(use-package denote
+  :bind
+  (("C-c n n" . denote-create-note)
+   ("C-c n l" . denote-link)
+   ("C-c n d" . denote-date))
+  :config
+  (setq denote-directory (expand-file-name "~/OneDrive/Documents/Denote/"))
+  (setq denote-known-keywords '("emacs" "python" "vhdl" "verilog" "books" "life" "work" "politics" "warcraft" "WoW"))
+  (setq denote-infer-keywords t)
+  (setq denote-sort-keywords t)
+  (setq denote-file-type nil)
+  (setq denote-prompts '(title keywords))
+  (setq denote-excluded-directories-regexp nil)
+  (setq denote-excluded-keywords-regexp nil)
+  (setq denote-date-prompt-use-org-read-date t)
+  (setq denote-backlinks-show-context t)
+  (add-hook 'find-file-hook #'denote-link-buttonize-buffer))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; KEYBINDS
@@ -402,8 +424,8 @@
 (global-set-key (kbd "<f6>") 'counsel-etags-find-tag-at-point)
 (global-set-key (kbd "<f7>") 'ispell-word)
 (global-set-key (kbd "<f8>") 'flyspell-correct-word)
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C-=") 'text-scale-decrease)
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 (global-unset-key (kbd "C-<wheel-up>"))
 (global-unset-key (kbd "C-<wheel-down>"))
 
