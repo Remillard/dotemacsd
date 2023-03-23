@@ -119,20 +119,20 @@
 ;; - wget -O en_US.dic https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic?id=a4473e06b56bfe35187e302754f6baaa8d75e54f
 ;; - Place in "c:/Hunspell/" (or wherever DICPATH below is set.)
 ;;
-(message "---- Spelling")
-(setenv "LANG" "en_US")
-(setenv "DICTIONARY" "en_US")
-(setenv "DICPATH" (expand-file-name "c:/Hunspell/"))
-(setq ispell-program-name (executable-find "hunspell")
-      flyspell-issue-message-flag t
-      ispell-highlight-p t
-      ispell-silently-savep t
-      ispell-current-dictionary "en_US"
-      ispell-hunspell-dict-paths-alist
-      '(("en_US" "c:/Hunspell/en_US.aff"))
-      ispell-dictionary "en_US")
-(add-hook 'text-mode-hook #'flyspell-mode)
-(add-hook 'prog-mode-hook #'flyspell-prog-mode)
+;; (message "---- Spelling")
+;; (setenv "LANG" "en_US")
+;; (setenv "DICTIONARY" "en_US")
+;; (setenv "DICPATH" (expand-file-name "c:/Hunspell/"))
+;; (setq ispell-program-name (executable-find "hunspell")
+;;       flyspell-issue-message-flag t
+;;       ispell-highlight-p t
+;;       ispell-silently-savep t
+;;       ispell-current-dictionary "en_US"
+;;       ispell-hunspell-dict-paths-alist
+;;       '(("en_US" "c:/Hunspell/en_US.aff"))
+;;       ispell-dictionary "en_US")
+;; (add-hook 'text-mode-hook #'flyspell-mode)
+;; (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 ;;
 ;; Personal Information Settings
 ;; This way I can have an identity for work and one for home and just
@@ -222,6 +222,24 @@
  display-line-numbers-grow-only t
  display-line-numbers-type 'relative
  display-line-numbers-width 2)
+
+;; (use-package emojify
+;;   :config
+;;   (when (member "Segoe UI Emoji" (font-family-list))
+;;     (set-fontset-font
+;;      t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend))
+;;   (setq emojify-display-style 'unicode)
+;;   (setq emojify-emoji-styles '(unicode))
+;;   (bind-key* (kbd "C-c .") #'emojify-insert-emoji)) ; override binding in any mode
+
+;; (use-package wttrin)
+;; (use-package display-wttr
+;;   :custom
+;;   (display-wttr-format "%l:+%C+%t(%f)+%w")
+;;   (display-wttr-locations '("Lenexa"))
+;;   (display-wttr-interval (* 60 60 ))
+;;   :config
+;;   (display-wttr-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

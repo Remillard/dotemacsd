@@ -20,7 +20,7 @@
    '(marginalia-annotators-heavy marginalia-annotators-light nil) t)
  '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(denote elpy jira-jump mastodon python-black orderless embark-consult embark org org-contacts org-appear corfu-terminal corfu yasnippet-snippets whole-line-or-region vscode-dark-plus-theme vertico use-package treemacs-all-the-icons solaire-mode smartparens rainbow-delimiters multiple-cursors move-text markdown-mode marginalia magit json-mode git-modes git-gutter doom-themes doom-modeline deadgrep counsel-etags consult cape bufler benchmark-init))
+   '(emojify display-wttr-hook display-wttr weather-metno wttrin denote elpy jira-jump mastodon python-black orderless embark-consult embark org org-contacts org-appear corfu-terminal corfu yasnippet-snippets whole-line-or-region vscode-dark-plus-theme vertico use-package treemacs-all-the-icons solaire-mode smartparens rainbow-delimiters multiple-cursors move-text markdown-mode marginalia magit json-mode git-modes git-gutter doom-themes doom-modeline deadgrep counsel-etags consult cape bufler benchmark-init))
  '(package-user-dir "c:/Users/nor71443/.emacs.d/elpa/")
  '(python-black-command "c:/Python311/Scripts/black.exe")
  '(python-black-extra-args nil)
@@ -37,7 +37,12 @@
       ("common/src/" "22133029/src/" "22163520/src/" "22166061/src/")
       ""
       (("Aldec" "-dbg -2008 -work \\1" "-f \\1 top_level" nil))
-      "sim/" "work" "sim/rp_onx10k_work/" "Makefile_\\2" "")))
+      "sim/" "work" "sim/rp_onx10k_work/" "Makefile_\\2" "")
+     ("GPSG-1010 Upconverter" "GPSG-1010 Upconverter" "c:/Users/nor71443/projects/gpsg-upconverter-fpga/"
+      ("hdl/")
+      ""
+      (("Aldec" "-dbg -2008 -work \\1" "-f \\1 top_level" nil))
+      "simulation/" "work" "simulation/work/" "Makefile_\\2" "")))
  '(vhdl-testbench-include-custom-library "use work.tb_util_pkg.all;")
  '(vhdl-testbench-include-libraries '(nil t t t nil nil nil nil t)))
 
