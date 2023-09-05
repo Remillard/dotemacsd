@@ -151,21 +151,22 @@
 ;; Theme
 ;;
 (message "==== Setting up client appearance ====")
-(use-package all-the-icons
-  :ensure t
-  :if (display-graphic-p))
 (use-package vscode-dark-plus-theme)
 (use-package doom-themes
   :ensure t
-  :config
+  :config 
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-one t)
+  ;;(load-theme 'doom-horizon t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
+(use-package modus-themes)
+(use-package ef-themes
+  :config
+  (load-theme 'ef-bio))
 ;;
 ;; Doom Modeline
 ;;
@@ -180,6 +181,11 @@
 ;;(set-frame-font "Consolas 14" nil t)
 ;;(set-frame-font "Cascadia Code Light 12" nil t)
 ;;(set-frame-font "Fira Code 13" nil t)
+;;
+;; Nerd Icons Font
+(use-package nerd-icons
+  :custom
+  (nerd-icons-font-family "Inconsolata Nerd Font Mono"))
 ;;
 ;; Frame position and size
 ;;
@@ -247,6 +253,11 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "==== Package Configuration ====")
+;;
+;; AUCTEX
+;;
+(use-package tex
+  :ensure auctex)
 ;;
 ;; Rainbow Delimeters
 ;;
@@ -364,16 +375,6 @@
    ("C-t" . treemacs))
   :config
   (setq treemacs-python-executable "c:/Python310/python.exe"))
-(use-package treemacs-all-the-icons
-  :after (treemacs all-the-icons)
-  :config
-  ;; The following line will load the theme, but exhibits some
-  ;; issues with alignment of the icons and text.
-  ;;  (treemacs-load-theme "all-the-icons"))
-  ;; This workaround sets up a specific font that does not vary
-  ;; in size and is used to handle alignment in the sidebar.
-  ;; Then it calls treemacs-load-theme for all-the-icons.
-  (treemacs-load-all-the-icons-with-workaround-font "Hermit"))
 ;;
 ;; Magit
 ;;
@@ -446,6 +447,10 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-unset-key (kbd "C-<wheel-up>"))
 (global-unset-key (kbd "C-<wheel-down>"))
+;; I never use brief list directory and always mistype for dired
+(global-set-key (kbd "C-x C-d") 'dired)
+;; Shortcut for going through compile errors as C-x ` is tedious.
+(global-set-key (kbd "<f1>") 'next-error)
 
 ;; Movement
 (when (fboundp 'windmove-default-keybindings)
@@ -471,7 +476,12 @@
 ;;                       (projects . ("AVX10K-"))))
 ;;         ("ITAR" . ((instance . "http://wic-jira.viavisolutions.com")
 ;;                    (projects . ("IFF45TS-")))))))
-
+;;
+;; Macro to kill the compilation window.
+;;
+(defalias 'kill-compilation-window
+   (kmacro "S-<down> q"))
+(global-set-key (kbd "<f2>") 'kill-compilation-window)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -490,7 +500,7 @@
 ;;
 ;; Setting up the most recent version (not on package repositories)
 (use-package vhdl-mode
-  :load-path "site-lisp/vhdl-mode-3.38.4/")
+  :load-path "site-lisp/vhdl-mode-3.39.3/")
 ;; Sets the closing parenthesis to be back one indent level which is not the
 ;; shipping standard for vhdl-mode.  This function hooks the set offset for
 ;; the closing argument list and sets it to 0 levels of indentation.

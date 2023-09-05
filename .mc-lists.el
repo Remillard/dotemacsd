@@ -4,13 +4,17 @@
 (setq mc/cmds-to-run-for-all
       '(
         beginning-of-visual-line
+        corfu-quit
         end-of-visual-line
         kill-region
         kill-visual-line
         org-cycle
         org-delete-char
         org-self-insert-command
+        tcl-electric-brace
+        tcl-electric-char
         tcl-electric-hash
+        tcl-indent-command
         upcase-region
         vhdl-electric-comma
         vhdl-electric-dash
@@ -18,6 +22,9 @@
         vhdl-electric-semicolon
         vhdl-electric-space
         vhdl-electric-tab
+        wdired--self-insert
+        wdired-finish-edit
+        whole-line-or-region-comment-dwim-2
         whole-line-or-region-kill-region
         whole-line-or-region-kill-ring-save
         ))
