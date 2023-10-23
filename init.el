@@ -501,15 +501,22 @@
 ;; Setting up the most recent version (not on package repositories)
 (use-package vhdl-mode
   :load-path "site-lisp/vhdl-mode-3.39.3/")
+
+;; Set up a better icon when nerd-icons are being used
+(add-to-list 'nerd-icons-extension-icon-alist '("vhd" nerd-icons-octicon "nf-oct-cpu" :face nerd-icons-blue))
+(add-to-list 'nerd-icons-extension-icon-alist '("vhdl" nerd-icons-octicon "nf-oct-cpu" :face nerd-icons-blue))
+
 ;; Sets the closing parenthesis to be back one indent level which is not the
 ;; shipping standard for vhdl-mode.  This function hooks the set offset for
 ;; the closing argument list and sets it to 0 levels of indentation.
 (add-hook 'vhdl-mode-hook
           (lambda ()
             (vhdl-set-offset 'arglist-close 0)))
+
 ;; Makes compilation buffer show up horizontal low
 (add-to-list 'display-buffer-alist
              '("\\*compilation\\*$" . (display-buffer-below-selected)))
+
 ;; Sets my preferred values for vhdl-mode
 (setq-default vhdl-basic-offset 4
               vhdl-electric-mode t
@@ -530,6 +537,7 @@
               vhdl-use-direct-instantiation 'always
               vhdl-compiler "Aldec"
               vhdl-platform-spec "Sim: Aldec Riviera-PRO, Synth: Vendor Toolchain (Quartus/Vivado)")
+
 ;; Setting up preferred header string
 (setq-default vhdl-modify-date-prefix-string "-- Last update : ")
 (setq-default vhdl-file-header "\
