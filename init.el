@@ -3,35 +3,31 @@
 ;; INITIALIZATION
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(message "==== Initial Bootstrap ====")
+(message "==== File Locations Setup ====")
 ;;
-;; FILE LOCATIONS
 ;; Emacs Customization File
 ;;
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
-(put 'dired-find-alternate-file 'disabled nil)
+(when (and custom-file
+           (file-exists-p custom-file))
+  (load custom-file nil 'nomessage))
 ;;
 ;; Temporary Directory for backups and whatnot.
 ;;
 (setq temporary-file-directory "c:/temp/")
 ;;
-;; Additional modules (some from Crafted Emacs)
+;; Adds crafted-emacs modules to the `load-path', sets up a module
+;; writing template, sets the `crafted-emacs-home' variable.
+;; 
+;; Does not find the home of the project correctly so setting 
+;; crafted home explicitly before calling the init config.
+;;
+(setq crafted-emacs-home "~/.emacs.d/crafted-emacs/")
+(load "~/.emacs.d/crafted-emacs/modules/crafted-init-config")
+;;
+;; Additional sources
 ;;
 (add-to-list 'load-path (expand-file-name "site-lisp/" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "crafted-lisp/" user-emacs-directory))
-;;
-;; Setting up package retrieval with `package.el` and using Crafted Emacs
-;; bootstrap file.
-;;
-(defvar crafted-config-path user-emacs-directory)
-(defvar crafted-config-var-directory (expand-file-name "var/" crafted-config-path))
-(defvar crafted-config-etc-directory (expand-file-name "etc/" crafted-config-path))
-(defvar crafted-bootstrap-directory (expand-file-name "crafted-lisp/" crafted-config-path)
-  "Crafted Emacs lisp module location")
-(load (expand-file-name "crafted-package.el" crafted-bootstrap-directory))
-(crafted-package-bootstrap crafted-package-system)
 ;;
 ;; Setup use-package
 ;;
@@ -41,11 +37,21 @@
   (eval-when-compile (require 'use-package)))
 (setq use-package-always-ensure t)
 ;;
+;; Setup Crafted Packages
+;;
+(require 'crafted-completion-packages)
+(require 'crafted-ide-packages)
+(require 'crafted-org-packages)
+(require 'crafted-ui-packages)
+(require 'crafted-workspaces-packages)
+(require 'crafted-writing-packages)
+;;
+;; Install the packages listed in the `package-selected-packages' list.
+;;
+(package-install-selected-packages :noconfirm)
+;;
 ;; Benchmarking package loading
 ;;
-(use-package benchmark-init
-  :config
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
 (add-hook 'after-init-hook (lambda () (message "loaded in %s" (emacs-init-time))))
 ;;
 ;; Increasing the garbage collection threshold The default garbage collection
@@ -87,6 +93,16 @@
 (put 'downcase-region 'disabled nil) ;; Eliminates irritating warning message
 (put 'upcase-region 'disabled nil)   ;; Eliminates irritating warning message
 
+(set-default-coding-systems 'utf-8)
+;;
+;; Crafted defaults (minimal overlap with the settings above)
+;;
+(require 'crafted-defaults-config)
+(require 'crafted-startup-config)
+;;
+;; Permits use of 'a' in dired.
+;;
+(put 'dired-find-alternate-file 'disabled nil)
 (setq dired-listing-switches "-aBhl --group-directories-first")
 ;;
 ;; Revert buffers when the underlying file has changed
@@ -152,6 +168,10 @@
 ;;
 (message "==== Setting up client appearance ====")
 (use-package vscode-dark-plus-theme)
+(use-package modus-themes)
+(use-package ef-themes
+  :config
+  (load-theme 'ef-bio))
 (use-package doom-themes
   :ensure t
   :config 
@@ -163,10 +183,6 @@
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
-(use-package modus-themes)
-(use-package ef-themes
-  :config
-  (load-theme 'ef-bio))
 ;;
 ;; Doom Modeline
 ;;
@@ -183,6 +199,7 @@
 ;;(set-frame-font "Fira Code 13" nil t)
 ;;
 ;; Nerd Icons Font
+;;
 (use-package nerd-icons
   :custom
   (nerd-icons-font-family "Inconsolata Nerd Font Mono"))
@@ -229,24 +246,6 @@
  display-line-numbers-type 'relative
  display-line-numbers-width 2)
 
-;; (use-package emojify
-;;   :config
-;;   (when (member "Segoe UI Emoji" (font-family-list))
-;;     (set-fontset-font
-;;      t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend))
-;;   (setq emojify-display-style 'unicode)
-;;   (setq emojify-emoji-styles '(unicode))
-;;   (bind-key* (kbd "C-c .") #'emojify-insert-emoji)) ; override binding in any mode
-
-;; (use-package wttrin)
-;; (use-package display-wttr
-;;   :custom
-;;   (display-wttr-format "%l:+%C+%t(%f)+%w")
-;;   (display-wttr-locations '("Lenexa"))
-;;   (display-wttr-interval (* 60 60 ))
-;;   :config
-;;   (display-wttr-mode))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; PACKAGES (Not loaded in other places)
@@ -254,10 +253,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "==== Package Configuration ====")
 ;;
-;; AUCTEX
+;; Crafted configurations in the submodule
 ;;
-(use-package tex
-  :ensure auctex)
+(message "---- Crafted Emacs Configs")
+(require 'crafted-completion-config)
+(require 'crafted-ide-config)
+(require 'crafted-org-config)
+(require 'crafted-speedbar-config)
+(require 'crafted-ui-config)
+(require 'crafted-updates-config)
+(require 'crafted-workspaces-config)
+(require 'crafted-writing-config)
 ;;
 ;; Rainbow Delimeters
 ;;
@@ -305,35 +311,7 @@
          ("<C-M-up>" . mc/mark-previous-like-this)
          ("C-M-<mouse-1>" . mc/add-cursor-on-click)))
 ;;
-;; Completion package from Crafted Emacs which puts in a bunch of stuff with
-;; decent configurations.
-;;
-(message "---- Completion (Crafted Emacs module)")
-(require 'crafted-completion)
-;;
-;; Org settings package from Crafted Emacs making a few basic settings for
-;; org-mode.
-;; 
-;;
-(message "---- Org Mode (Crafted Emacs module)")
-(require 'crafted-org)
-;;
-;; Company completion tools When coming back to this (if ever) see reddit thread
-;; where it is suggested how to debug it, and how to use dabbrev-code.
-;;
-;; (message "---- Company")
-;; (use-package company
-;;   :config
-;;   (setq company-backends '(company-dabbrev))
-;;   (setq company-dabbrev-ignore-case nil)
-;;   (setq company-dabbrev-downcase nil)
-;;   :init
-;;   (global-company-mode 1))
-;; (use-package company-statistics
-;;   :hook
-;;   (after-init-hook . company-statistics-mode))
-;;
-;; Counsel
+;; Counsel Etags
 ;;
 (message "---- Counsel Etags")
 (use-package counsel-etags
@@ -374,7 +352,7 @@
   (("C-x M-b" . treemacs)
    ("C-t" . treemacs))
   :config
-  (setq treemacs-python-executable "c:/Python310/python.exe"))
+  (setq treemacs-python-executable "c:/Python311/python.exe"))
 ;;
 ;; Magit
 ;;
@@ -382,11 +360,11 @@
 (use-package magit
   :bind
   ("C-x g" . magit-status))
-(use-package git-gutter
-  :config
-  (global-git-gutter-mode 't))
+;; (use-package git-gutter
+;;   :config
+;;   (global-git-gutter-mode 't)
+;;   (git-gutter:linum-setup))
 (use-package git-modes)
-
 ;;
 ;; Bufler (Buffer Butler)
 ;;
@@ -399,29 +377,29 @@
 ;;
 ;; Whole line or region
 ;;
+(message "---- Whole Line Or Region DWIM")
 (use-package whole-line-or-region
   :config
   (whole-line-or-region-global-mode))
 ;;
 ;; Denote
+;; This was added in the Crafted Org module but configured here.
 ;;
-(use-package denote
-  :bind
-  (("C-c n n" . denote-create-note)
-   ("C-c n l" . denote-link)
-   ("C-c n d" . denote-date))
-  :config
-  (setq denote-directory (expand-file-name "~/OneDrive/Documents/Denote/"))
-  (setq denote-known-keywords '("emacs" "python" "vhdl" "verilog" "books" "life" "work" "politics" "warcraft" "WoW"))
-  (setq denote-infer-keywords t)
-  (setq denote-sort-keywords t)
-  (setq denote-file-type nil)
-  (setq denote-prompts '(title keywords))
-  (setq denote-excluded-directories-regexp nil)
-  (setq denote-excluded-keywords-regexp nil)
-  (setq denote-date-prompt-use-org-read-date t)
-  (setq denote-backlinks-show-context t)
-  (add-hook 'find-file-hook #'denote-link-buttonize-buffer))
+(message "---- Denote Configuration")
+(global-set-key (kbd "C-c n n") 'denote-create-note)
+(global-set-key (kbd "C-c n l") 'denote-link)
+(global-set-key (kbd "C-c n d") 'denote-date)
+(setq denote-directory (expand-file-name "~/OneDrive/Documents/Denote/"))
+(setq denote-known-keywords '("emacs" "python" "vhdl" "verilog" "books" "life" "work" "politics" "warcraft" "WoW"))
+(setq denote-infer-keywords t)
+(setq denote-sort-keywords t)
+(setq denote-file-type nil)
+(setq denote-prompts '(title keywords))
+(setq denote-excluded-directories-regexp nil)
+(setq denote-excluded-keywords-regexp nil)
+(setq denote-date-prompt-use-org-read-date t)
+(setq denote-backlinks-show-context t)
+(add-hook 'find-file-hook #'denote-link-buttonize-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -447,12 +425,23 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-unset-key (kbd "C-<wheel-up>"))
 (global-unset-key (kbd "C-<wheel-down>"))
+;;
 ;; I never use brief list directory and always mistype for dired
+;;
 (global-set-key (kbd "C-x C-d") 'dired)
+;;
 ;; Shortcut for going through compile errors as C-x ` is tedious.
+;;
 (global-set-key (kbd "<f1>") 'next-error)
-
-;; Movement
+;;
+;; Macro to kill the compilation window.
+;;
+(defalias 'kill-compilation-window
+   (kmacro "S-<down> q"))
+(global-set-key (kbd "<f2>") 'kill-compilation-window)
+;;
+;; Window Movement
+;;
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 (setq windmove-wrap-around t)
@@ -464,25 +453,6 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 (global-set-key (kbd "C-c I") 'find-config)
-;;
-;; Jira Jump
-;;
-;; (use-package jira-jump
-;;   :load-path "site-lisp/jira-jump/"
-;;   :ensure
-;;   :config
-;;   (setq jira-jump--projects
-;;       '(("EAR" . ((instance . "https://jira1.ds.jdsu.net/jira")
-;;                       (projects . ("AVX10K-"))))
-;;         ("ITAR" . ((instance . "http://wic-jira.viavisolutions.com")
-;;                    (projects . ("IFF45TS-")))))))
-;;
-;; Macro to kill the compilation window.
-;;
-(defalias 'kill-compilation-window
-   (kmacro "S-<down> q"))
-(global-set-key (kbd "<f2>") 'kill-compilation-window)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; PROGRAMMING MODES
@@ -616,6 +586,24 @@
 ;; overriding built-in packages.
 (use-package verilog-mode
   :load-path "elpa/verilog-mode-2021.10.14.127365406/")
+(customize-set-variable 'verilog-auto-delete-trailing-whitespace t)
+(customize-set-variable 'verilog-auto-lineup 'all)
+(customize-set-variable 'verilog-case-indent 4)
+(customize-set-variable 'verilog-cexp-indent 4)
+(customize-set-variable 'verilog-indent-level 4)
+(customize-set-variable 'verilog-indent-level-behavioral 4)
+(customize-set-variable 'verilog-indent-level-declaration 4)
+(customize-set-variable 'verilog-indent-level-directive 4)
+(customize-set-variable 'verilog-indent-level-module 4)
+(customize-set-variable 'verilog-auto-delete-trailing-whitespace t)
+(customize-set-variable 'verilog-auto-lineup 'all)
+(customize-set-variable 'verilog-case-indent 4)
+(customize-set-variable 'verilog-cexp-indent 4)
+(customize-set-variable 'verilog-indent-level 4)
+(customize-set-variable 'verilog-indent-level-behavioral 4)
+(customize-set-variable 'verilog-indent-level-declaration 4)
+(customize-set-variable 'verilog-indent-level-directive 4)
+(customize-set-variable 'verilog-indent-level-module 4)
 ;;
 ;; Tcl
 ;;
