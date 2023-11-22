@@ -6,6 +6,7 @@
         beginning-of-visual-line
         corfu-quit
         end-of-visual-line
+        indent-for-tab-command
         kill-region
         kill-visual-line
         org-cycle

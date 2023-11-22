@@ -13,7 +13,7 @@
  '(corfu-auto-prefix 2)
  '(corfu-cycle t)
  '(custom-safe-themes
-   '("3ca84532551daa1b492545bbfa47fd1b726ca951d8be29c60a3214ced30b86f5" default))
+   '("65a1a112abd99456167df57ce2cfff42ed137c4f9146e75b2ae9812499689c3a" "3ca84532551daa1b492545bbfa47fd1b726ca951d8be29c60a3214ced30b86f5" default))
  '(dired-auto-revert-buffer t)
  '(dired-dwim-target t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain t)
@@ -47,7 +47,7 @@
      ("stable" . 70)
      ("melpa" . 0)))
  '(package-selected-packages
-   '(python-black elpy json-mode whole-line-or-region bufler git-modes git-gutter magit treemacs yasnippet yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters solaire-mode doom-modeline ef-themes modus-themes doom-themes vscode-dark-plus-theme auctex-latexmk auctex pandoc-mode markdown-mode tabspaces helpful elisp-demos all-the-icons org-appear denote ibuffer-project aggressive-indent editorconfig treesit-auto vertico orderless marginalia embark-consult embark corfu-terminal corfu consult cape compat))
+   '(matlab-mode python-black elpy json-mode whole-line-or-region bufler git-modes git-gutter magit treemacs yasnippet yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters solaire-mode doom-modeline ef-themes modus-themes doom-themes vscode-dark-plus-theme auctex-latexmk auctex pandoc-mode markdown-mode tabspaces helpful elisp-demos all-the-icons org-appear denote ibuffer-project aggressive-indent editorconfig treesit-auto vertico orderless marginalia embark-consult embark corfu-terminal corfu consult cape compat))
  '(python-black-command "c:/Python311/Scripts/black.exe")
  '(python-black-extra-args nil)
  '(scroll-conservatively 101)
@@ -107,4 +107,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "outline" :slant normal :weight regular :height 141 :width normal)))))
+ '(default ((t (:family "Inconsolata" :foundry "outline" :slant normal :weight regular :height 143 :width normal)))))

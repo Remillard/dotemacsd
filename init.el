@@ -625,6 +625,25 @@
 ;;
 (use-package markdown-mode)
 ;;
+;; Typst Treesitter Mode
+;;
+(use-package typst-ts-mode
+  :load-path "site-lisp/typst-ts-mode/")
+(setq auto-mode-alist
+      (append
+       ;; Typst
+       '(("\\.typst\\'" . typst-ts-mode)
+         ("\\.typ\\'" . typst-ts-mode))
+       auto-mode-alist))
+;; This sets up the header identification for
+;; outline minor mode.
+(setq outline-regexp "[=]+")
+;; This changes the outline minor mode prefix key from the
+;; oddly insane "C-c @" to something reasonable like "M-o"
+(add-hook 'outline-minor-mode-hook
+          (lambda () (local-set-key "\M-o"
+                                    outline-mode-prefix-map)))
+;;
 ;; Python
 ;;
 (use-package elpy
