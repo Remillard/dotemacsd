@@ -628,7 +628,9 @@
 ;; Typst Treesitter Mode
 ;;
 (use-package typst-ts-mode
-  :load-path "site-lisp/typst-ts-mode/")
+  :load-path "site-lisp/typst-ts-mode/"
+  :custom
+  (typst-ts-mode-grammar-location (expand-file-name "tree-sitter/libtree-sitter-typst.dll")))
 (setq auto-mode-alist
       (append
        ;; Typst
