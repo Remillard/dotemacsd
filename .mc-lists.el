@@ -33,9 +33,12 @@
 (setq mc/cmds-to-run-once
       '(
         beginning-of-buffer
+        isearch-forward-regexp
         isearch-forward-symbol-at-point
+        isearch-printing-char
         mouse-drag-region-rectangle
         next-error
+        string-rectangle
         suspend-frame
         switch-to-buffer
         vhdl-beautify-buffer

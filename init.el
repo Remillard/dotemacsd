@@ -192,11 +192,11 @@
 ;; Font(s)
 ;;
 (setq text-scale-mode-step 1.07)
-(set-frame-font "Inconsolata 14" nil t)
+;;(set-frame-font "Inconsolata 14" nil t)
 ;;(set-frame-font "Roboto Mono 12" nil t)
 ;;(set-frame-font "Consolas 14" nil t)
 ;;(set-frame-font "Cascadia Code Light 12" nil t)
-;;(set-frame-font "Fira Code 13" nil t)
+(set-frame-font "Fira Code 13" nil t)
 ;;
 ;; Nerd Icons Font
 ;;

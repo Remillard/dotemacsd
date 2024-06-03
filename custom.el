@@ -47,7 +47,7 @@
      ("stable" . 70)
      ("melpa" . 0)))
  '(package-selected-packages
-   '(matlab-mode python-black elpy json-mode whole-line-or-region bufler git-modes git-gutter magit treemacs yasnippet yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters solaire-mode doom-modeline ef-themes modus-themes doom-themes vscode-dark-plus-theme auctex-latexmk auctex pandoc-mode markdown-mode tabspaces helpful elisp-demos all-the-icons org-appear denote ibuffer-project aggressive-indent editorconfig treesit-auto vertico orderless marginalia embark-consult embark corfu-terminal corfu consult cape compat))
+   '(dirvish dired-git-info dired-subtree casual matlab-mode python-black elpy json-mode whole-line-or-region bufler git-modes git-gutter magit treemacs yasnippet yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters solaire-mode doom-modeline ef-themes modus-themes doom-themes vscode-dark-plus-theme auctex-latexmk auctex pandoc-mode markdown-mode tabspaces helpful elisp-demos all-the-icons org-appear denote ibuffer-project aggressive-indent editorconfig treesit-auto vertico orderless marginalia embark-consult embark corfu-terminal corfu consult cape compat))
  '(python-black-command "c:/Python311/Scripts/black.exe")
  '(python-black-extra-args nil)
  '(scroll-conservatively 101)
@@ -107,4 +107,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "outline" :slant normal :weight regular :height 141 :width normal)))))
+ '(default ((t (:family "Fira Code" :foundry "outline" :slant normal :weight regular :height 130 :width normal)))))
