@@ -13,7 +13,7 @@
  '(corfu-auto-prefix 2)
  '(corfu-cycle t)
  '(custom-safe-themes
-   '("65a1a112abd99456167df57ce2cfff42ed137c4f9146e75b2ae9812499689c3a" "3ca84532551daa1b492545bbfa47fd1b726ca951d8be29c60a3214ced30b86f5" default))
+   '("d4b608d76e3a087b124c74c2b642c933d8121b24e53d4bbd5e7327c36cc69ccc" "65a1a112abd99456167df57ce2cfff42ed137c4f9146e75b2ae9812499689c3a" "3ca84532551daa1b492545bbfa47fd1b726ca951d8be29c60a3214ced30b86f5" default))
  '(dired-auto-revert-buffer t)
  '(dired-dwim-target t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain t)
@@ -47,7 +47,7 @@
      ("stable" . 70)
      ("melpa" . 0)))
  '(package-selected-packages
-   '(dirvish dired-git-info dired-subtree casual matlab-mode python-black elpy json-mode whole-line-or-region bufler git-modes git-gutter magit treemacs yasnippet yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters solaire-mode doom-modeline ef-themes modus-themes doom-themes vscode-dark-plus-theme auctex-latexmk auctex pandoc-mode markdown-mode tabspaces helpful elisp-demos all-the-icons org-appear denote ibuffer-project aggressive-indent editorconfig treesit-auto vertico orderless marginalia embark-consult embark corfu-terminal corfu consult cape compat))
+   '(vhdl-ts-mode git-modes solaire-mode doom-modeline dirvish dired-git-info dired-subtree python-black elpy json-mode whole-line-or-region bufler git-gutter magit treemacs yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters doom-themes vscode-dark-plus-theme auctex-latexmk pandoc-mode markdown-mode helpful all-the-icons org-appear ibuffer-project aggressive-indent corfu-terminal))
  '(python-black-command "c:/Python311/Scripts/black.exe")
  '(python-black-extra-args nil)
  '(scroll-conservatively 101)
@@ -67,7 +67,7 @@
  '(switch-to-buffer-in-dedicated-window 'pop)
  '(switch-to-buffer-obey-display-actions t)
  '(tab-always-indent 'complete)
- '(tabspaces-include-buffers '("*scratch*"))
+ '(tabspaces-include-buffers '(*scratch* *Messages*))
  '(tabspaces-mode t)
  '(tabspaces-remove-to-default t)
  '(tabspaces-use-filtered-buffers-as-default t)
@@ -85,7 +85,7 @@
  '(vhdl-project "AVX-10K FPGA")
  '(vhdl-project-alist
    '(("IFF-45TS DIAC Board FPGA" "IFF-45TS Next Generation w/ Arria 10 SX660 FPGA" "c:/Users/nor71443/projects/iff45ts-diac-fpga/"
-      ("board_p1/src/" "common/src/")
+      ("board_p2/src/" "common/src/")
       ""
       (("Aldec" "-dbg -2008 -work \\1" "-f \\1 top_level" nil))
       "sim/" "work" "lib/" "Makefile_\\2" "")
@@ -99,8 +99,6 @@
       ""
       (("Aldec" "-dbg -2008 -work \\1" "-f \\1 top_level" nil))
       "simulation/" "work" "simulation/work/" "Makefile_\\2" "")))
- '(vhdl-testbench-include-custom-library "use work.tb_util_pkg.all;")
- '(vhdl-testbench-include-libraries '(nil t t t nil nil nil nil t))
  '(xref-show-definitions-function 'xref-show-definitions-completing-read))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

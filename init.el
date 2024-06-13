@@ -38,6 +38,7 @@
 (setq use-package-always-ensure t)
 ;;
 ;; Setup Crafted Packages
+;; This checks that the various packages setup by Crafted are loaded.
 ;;
 (require 'crafted-completion-packages)
 (require 'crafted-ide-packages)
@@ -254,6 +255,7 @@
 (message "==== Package Configuration ====")
 ;;
 ;; Crafted configurations in the submodule
+;; This does the configuration for the packages that were checked earlier.
 ;;
 (message "---- Crafted Emacs Configs")
 (require 'crafted-completion-config)
@@ -534,32 +536,44 @@
 (setq-default vhdl-testbench-include-configuration nil
               vhdl-testbench-include-header t
               vhdl-testbench-include-library t
-              vhdl-testbench-include-libraries '(nil t t t nil nil nil nil t)
-              vhdl-testbench-include-custom-library "use work.tb_util_pkg.all;")
+              vhdl-testbench-include-libraries '(nil t t t nil nil nil nil t))
+(setq-default vhdl-testbench-include-custom-library "\
+
+library std;
+use std.env.all;
+use std.textio.all;
+
+library uvvm_util;
+context uvvm_util.uvvm_util_context;
+")
+(setq-default vhdl-testbench-declarations "\
+    --
+    -- Clock and Reset Declarations
+    --
+    signal tb_reset            : std_logic := '0';
+    signal tb_clk              : std_logic := '0';
+    signal tb_clk_en           : boolean   := False;
+    constant C_CLK_FREQ        : real      := 100.0e6;  -- Hz
+    constant C_CLK_PERIOD_REAL : real      := 1.0 / C_CLK_FREQ;
+    constant C_CLK_PERIOD_TIME : time      := C_CLK_PERIOD_REAL * (1 SEC);
+")
 (setq-default vhdl-testbench-statements "\
-    ------------------------------------------------------------
-    -- Clocks and Reset
-    -- (Requires tb_util_pkg)
-    ------------------------------------------------------------
-    CLK_GEN : process
-    begin
-        create_clock(clk, C_CLK_FREQ);
-    end process CLK_GEN;
+    ----------------------------------------------------------------------------
+    -- Clocks
+    ----------------------------------------------------------------------------
+    clock_generator(tb_clk, tb_clk_en, C_CLK_PERIOD_TIME, \"TESTBENCH CLOCK\");
 
-    RESET_GEN : process
-    begin
-        reset <= '1',
-                 '0' after 20.0*C_CLK_PERIOD * (1 SEC);
-        wait;
-    end process RESET_GEN;
-
-    ------------------------------------------------------------
+    ----------------------------------------------------------------------------
     -- Stimulus
-    ------------------------------------------------------------
+    ----------------------------------------------------------------------------
     STIMULUS : process
     begin
         -- Initialization
-        wait until reset = '0';
+
+        -- Clock and Reset 
+        tb_clk_en <= TRUE;
+        gen_pulse(tb_reset, 10*C_CLK_PERIOD_TIME, \"Pulsed reset signal.\", C_SCOPE);
+        wait until falling_edge(tb_reset);
 
         -- Do stuff
 
@@ -567,17 +581,7 @@
         std.env.stop(0);
         wait;
     end process STIMULUS;
-
 ")
-(setq-default vhdl-testbench-declarations "\
-    -- Reset and clock declarations
-    -- May need to delete clk/reset if they are in the DUT ports.
-    signal clk   : std_logic;
-    signal reset : std_logic;
-    constant C_CLK_FREQ   : real := 100.0e6;          -- Hz
-    constant C_CLK_PERIOD : real := 1.0 / C_CLK_FREQ; -- Seconds
-")
-;;
 ;;
 ;; Verilog
 ;;
@@ -662,6 +666,14 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "==== Custom Functions ====")
+;;
+;; Making sure *Messages* shows up as a live buffer rather than being
+;; secondarily accessed.
+;;
+(customize-set-variable 'tabspaces-include-buffers '(*scratch* *Messages*))
+;;
+;; Dired in the 10k
+;;
 (defun avx10k-dired ()
   (interactive)
   (let ((first-address (read-string "Unit address: ")))
