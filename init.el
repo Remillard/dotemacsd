@@ -425,6 +425,7 @@
 (global-set-key (kbd "<f8>") 'flyspell-correct-word)
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
+;; Also remember C-x C-M-0 for global text scale adjust!!!
 (global-unset-key (kbd "C-<wheel-up>"))
 (global-unset-key (kbd "C-<wheel-down>"))
 ;;
