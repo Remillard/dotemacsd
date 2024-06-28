@@ -267,6 +267,12 @@
 (require 'crafted-workspaces-config)
 (require 'crafted-writing-config)
 ;;
+;; Org Configuration (outside of crafted-org-config)
+;;
+(setq org-clock-persist 'history)
+(setq org-log-done 'time)
+(org-clock-persistence-insinuate)
+;;
 ;; Rainbow Delimeters
 ;;
 (message "---- Rainbow Delimiters")

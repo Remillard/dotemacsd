@@ -3,7 +3,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(LaTeX-electric-left-right-brace t)
  '(Man-notify-method 'aggressive t)
+ '(TeX-auto-save t)
+ '(TeX-electric-math '("$" . "$"))
+ '(TeX-electric-sub-and-superscript t)
+ '(TeX-parse-self t)
  '(bookmark-save-flag 1)
  '(completion-category-overrides '((file (styles partial-completion))))
  '(completion-cycle-threshold 3)
@@ -12,15 +17,13 @@
  '(corfu-auto t)
  '(corfu-auto-prefix 2)
  '(corfu-cycle t)
- '(custom-safe-themes
-   '("d4b608d76e3a087b124c74c2b642c933d8121b24e53d4bbd5e7327c36cc69ccc" "65a1a112abd99456167df57ce2cfff42ed137c4f9146e75b2ae9812499689c3a" "3ca84532551daa1b492545bbfa47fd1b726ca951d8be29c60a3214ced30b86f5" default))
  '(dired-auto-revert-buffer t)
  '(dired-dwim-target t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain t)
  '(eglot-autoshutdown t t)
  '(eshell-scroll-to-bottom-on-input 'this t)
  '(fancy-splash-image
-   "c:/Users/nor71443/.emacs.d/crafted-emacs/system-crafters-logo.png")
+   "d:/home/remi/.emacs.d/crafted-emacs/system-crafters-logo.png")
  '(fast-but-imprecise-scrolling t)
  '(global-auto-revert-non-file-buffers t)
  '(ibuffer-movement-cycle nil)
@@ -29,9 +32,6 @@
  '(latex-run-command "pdflatex")
  '(load-prefer-newer t t)
  '(magit-git-executable "C:/Program Files/Git/cmd/git.exe")
- '(magit-repository-directories
-   '(("c:/users/nor71443/projects" . 1)
-     ("c:/users/nor71443/.emacs.d" . 0)))
  '(marginalia-annotators
    '(marginalia-annotators-heavy marginalia-annotators-light nil) t)
  '(markdown-enable-html t)
@@ -47,9 +47,9 @@
      ("stable" . 70)
      ("melpa" . 0)))
  '(package-selected-packages
-   '(vhdl-ts-mode git-modes solaire-mode doom-modeline dirvish dired-git-info dired-subtree python-black elpy json-mode whole-line-or-region bufler git-gutter magit treemacs yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters doom-themes vscode-dark-plus-theme auctex-latexmk pandoc-mode markdown-mode helpful all-the-icons org-appear ibuffer-project aggressive-indent corfu-terminal))
- '(python-black-command "c:/Python311/Scripts/black.exe")
+   '(nerd-icons ef-themes modus-themes treesit-auto tabspaces breadcrumb elisp-demos denote editorconfig tree-sitter-langs tree-sitter-ispell tree-sitter-indent tree-sitter eglot vertico orderless marginalia embark-consult embark corfu consult cape vhdl-ts-mode git-modes solaire-mode doom-modeline dirvish dired-git-info dired-subtree python-black elpy json-mode whole-line-or-region bufler git-gutter magit treemacs yasnippet-snippets counsel-etags multiple-cursors deadgrep move-text smartparens rainbow-delimiters doom-themes vscode-dark-plus-theme auctex-latexmk pandoc-mode markdown-mode helpful all-the-icons org-appear ibuffer-project aggressive-indent corfu-terminal))
  '(python-black-extra-args nil)
+ '(reftex-plug-into-AUCTeX t t)
  '(scroll-conservatively 101)
  '(scroll-margin 0)
  '(scroll-preserve-screen-position t)
@@ -105,4 +105,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code" :foundry "outline" :slant normal :weight regular :height 130 :width normal)))))
+ '(default ((t (:family "Fira Code" :foundry "outline" :slant normal :weight regular :height 128 :width normal)))))
