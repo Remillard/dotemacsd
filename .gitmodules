@@ -1,3 +1,6 @@
 [submodule "crafted-emacs"]
 	path = crafted-emacs
 	url = https://github.com/SystemCrafters/crafted-emacs.git
+[submodule "site-lisp/typst-ts-mode"]
+	path = site-lisp/typst-ts-mode
+	url = https://git.sr.ht/~meow_king/typst-ts-mode
